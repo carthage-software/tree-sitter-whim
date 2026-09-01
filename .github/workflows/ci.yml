@@ -17,7 +17,7 @@ jobs:
     name: Generated parser
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v5
         with:
           cache: npm
@@ -40,7 +40,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-14, windows-latest]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: tree-sitter/setup-action/cli@v2
       - uses: tree-sitter/parser-test-action@v3
         with:

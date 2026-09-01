@@ -1,0 +1,27 @@
+[package]
+authors = [ "Seifeddine Gmati <azjezz@carthage.software>" ]
+autoexamples = false
+categories = [ "parser-implementations", "parsing", "text-editors" ]
+description = "Tree-sitter grammar for Whim"
+edition = "2024"
+keywords = [ "incremental", "parsing", "tree-sitter", "whim" ]
+license = "MIT OR Apache-2.0"
+name = "tree-sitter-whim"
+readme = "README.md"
+repository = "https://github.com/carthage-software/tree-sitter-whim"
+version = "0.1.0"
+
+build = "bindings/rust/build.rs"
+include = [ "bindings/rust/*", "grammar.js", "queries/*", "src/*", "tests/*", "tree-sitter.json", "/LICENSE-APACHE", "/LICENSE-MIT" ]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1.2"
+
+[dev-dependencies]
+tree-sitter = "0.27.0"

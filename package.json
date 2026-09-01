@@ -1,0 +1,68 @@
+{
+  "name": "tree-sitter-whim",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for Whim",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carthage-software/tree-sitter-whim.git"
+  },
+  "license": "MIT OR Apache-2.0",
+  "author": {
+    "name": "Seifeddine Gmati",
+    "email": "azjezz@carthage.software",
+    "url": "https://github.com/azjezz"
+  },
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "keywords": [
+    "incremental",
+    "parsing",
+    "tree-sitter",
+    "whim"
+  ],
+  "files": [
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+    "README.md",
+    "grammar.js",
+    "tree-sitter.json",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**",
+    "!src/*.o",
+    "*.wasm"
+  ],
+  "dependencies": {
+    "node-addon-api": "^8.5.0",
+    "node-gyp-build": "^4.8.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.9.1",
+    "prebuildify": "^6.0.1",
+    "tree-sitter": "^0.25.0",
+    "tree-sitter-cli": "0.27.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.25.0"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build:wasm": "tree-sitter build --wasm",
+    "generate": "tree-sitter generate",
+    "install": "node-gyp-build",
+    "lint": "eslint grammar.js",
+    "prestart": "npm run build:wasm",
+    "start": "tree-sitter playground",
+    "test": "npm run test:parser && npm run test:node",
+    "test:node": "node --test bindings/node/*_test.js",
+    "test:parser": "tree-sitter test"
+  }
+}

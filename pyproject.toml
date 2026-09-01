@@ -1,0 +1,31 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=77.0.0" ]
+
+[project]
+authors = [ { email = "azjezz@carthage.software", name = "Seifeddine Gmati" } ]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Compilers",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed",
+]
+description = "Tree-sitter grammar for Whim"
+keywords = [ "incremental", "parsing", "tree-sitter", "whim" ]
+license = "MIT OR Apache-2.0"
+license-files = [ "LICENSE-APACHE", "LICENSE-MIT" ]
+name = "tree-sitter-whim"
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.1.0"
+
+[project.urls]
+Homepage = "https://github.com/carthage-software/tree-sitter-whim"
+Repository = "https://github.com/carthage-software/tree-sitter-whim"
+
+[project.optional-dependencies]
+core = [ "tree-sitter~=0.24" ]
+
+[tool.cibuildwheel]
+build = "cp310-*"
+build-frontend = "build"

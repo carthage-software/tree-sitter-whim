@@ -1,0 +1,187 @@
+==================
+Language constructs
+==================
+
+$loaded = require!('file.whim');
+$once = require_once!('file.whim',);
+$length = length!($values);
+$contains = contains!($values, $needle);
+$hasKey = contains_key!($values, $key,);
+$copy = clone!($object, name: 'copy', value: 2,);
+$removed = remove!($values, $key);
+$swapped = swap_remove!($values, 0);
+$first = remove_first!($values);
+$last = remove_last!($values,);
+assert!($ready, 'not ready',);
+exit!();
+exit!(1,);
+panic!('fatal');
+write!();
+write!('one', 2,);
+write_line!('line');
+write_error!('error');
+write_error_line!('error line');
+debug!($value, $other);
+discard!($value);
+drop!($first, $last,);
+$file = file!();
+$directory = directory!();
+$template = embed!('template.txt');
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (require_construct
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (require_once_construct
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (length_construct
+        value: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (contains_construct
+        array: (variable)
+        value: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (contains_key_construct
+        array: (variable)
+        key: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (clone_construct
+        object: (variable)
+        (clone_field
+          name: (member_name
+            (identifier))
+          value: (string_literal
+            (single_quoted_string
+              (string_content))))
+        (clone_field
+          name: (member_name
+            (identifier))
+          value: (integer_literal)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (remove_construct
+        array: (variable)
+        key: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (swap_remove_construct
+        vector: (variable)
+        index: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (remove_first_construct
+        array: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (remove_last_construct
+        array: (variable))))
+  (expression_statement
+    (assert_construct
+      condition: (variable)
+      (assert_message
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (exit_construct))
+  (expression_statement
+    (exit_construct
+      code: (integer_literal)))
+  (expression_statement
+    (panic_construct
+      message: (string_literal
+        (single_quoted_string
+          (string_content)))))
+  (expression_statement
+    (write_construct))
+  (expression_statement
+    (write_construct
+      (construct_argument
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))
+      (construct_argument
+        value: (integer_literal))))
+  (expression_statement
+    (write_line_construct
+      (construct_argument
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (write_error_construct
+      (construct_argument
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (write_error_line_construct
+      (construct_argument
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (expression_statement
+    (debug_construct
+      (construct_argument
+        value: (variable))
+      (construct_argument
+        value: (variable))))
+  (expression_statement
+    (discard_construct
+      value: (variable)))
+  (expression_statement
+    (drop_construct
+      variable: (variable)
+      variable: (variable)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (file_construct)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (directory_construct)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (embed_construct
+        path: (string_literal
+          (single_quoted_string
+            (string_content)))))))

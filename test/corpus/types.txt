@@ -1,0 +1,266 @@
+==================
+Primitive, literal, range, and named types
+==================
+
+type Primitives = string|int|float|bool|void|mixed|never|object;
+type Literals = true|false|null|42|-42|3.14|-3.14|'ready';
+type Ranges = 0..10|-10..=10|42..|..100;
+type Lengths = string[8]|string[1..=32]|string[..64]|string[1..];
+type Names = Local|Vendor\Package\Type<int, string>|\Root\Type::Member<bool>;
+type Relative = self::Member|parent|static;
+type Grouped = (int|string)&!null;
+type Wildcard = _;
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (union_type
+          left: (union_type
+            left: (union_type
+              left: (union_type
+                left: (union_type
+                  left: (primitive_type)
+                  right: (primitive_type))
+                right: (primitive_type))
+              right: (primitive_type))
+            right: (primitive_type))
+          right: (primitive_type))
+        right: (primitive_type))
+      right: (primitive_type)))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (union_type
+          left: (union_type
+            left: (union_type
+              left: (union_type
+                left: (union_type
+                  left: (literal_type
+                    (boolean_literal))
+                  right: (literal_type
+                    (boolean_literal)))
+                right: (literal_type
+                  (null_literal)))
+              right: (literal_type
+                (integer_literal)))
+            right: (negative_literal_type
+              value: (integer_literal)))
+          right: (literal_type
+            (float_literal)))
+        right: (negative_literal_type
+          value: (float_literal)))
+      right: (literal_type
+        (string_literal
+          (single_quoted_string
+            (string_content))))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (union_type
+          left: (integer_range_type
+            lower: (signed_integer_literal
+              (integer_literal))
+            operator: (range_operator)
+            upper: (signed_integer_literal
+              (integer_literal)))
+          right: (integer_range_type
+            lower: (signed_integer_literal
+              (integer_literal))
+            operator: (range_operator)
+            upper: (signed_integer_literal
+              (integer_literal))))
+        right: (integer_range_type
+          lower: (signed_integer_literal
+            (integer_literal))
+          operator: (range_operator)))
+      right: (integer_range_type
+        operator: (range_operator)
+        upper: (signed_integer_literal
+          (integer_literal)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (union_type
+          left: (string_length_type
+            length: (integer_literal))
+          right: (string_length_type
+            length: (nonnegative_integer_range
+              lower: (integer_literal)
+              operator: (range_operator)
+              upper: (integer_literal))))
+        right: (string_length_type
+          length: (nonnegative_integer_range
+            operator: (range_operator)
+            upper: (integer_literal))))
+      right: (string_length_type
+        length: (nonnegative_integer_range
+          lower: (integer_literal)
+          operator: (range_operator)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (named_type
+          name: (identifier))
+        right: (named_type
+          name: (qualified_name
+            (identifier)
+            (identifier)
+            (identifier))
+          (type_argument_list
+            (type_argument
+              type: (primitive_type))
+            (type_argument
+              type: (primitive_type)))))
+      right: (named_type
+        name: (fully_qualified_name
+          (identifier)
+          (identifier))
+        (member_type
+          name: (identifier)
+          (type_argument_list
+            (type_argument
+              type: (primitive_type)))))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (self_type
+          (member_type
+            name: (identifier)))
+        right: (parent_type))
+      right: (static_type)))
+  (type_alias_declaration
+    name: (identifier)
+    type: (intersection_type
+      left: (parenthesized_type
+        type: (union_type
+          left: (primitive_type)
+          right: (primitive_type)))
+      right: (negated_type
+        type: (literal_type
+          (null_literal)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (wildcard_type)))
+
+==================
+Tuple, callable, collection, shape, and classname types
+==================
+
+type Tuples = (int, string, ...bool)|(int, string)|( ...mixed);
+type Functions = fn|fn(int, =string,): void;
+type Arrays = array|array<string, mixed>;
+type Vectors = vec|vec<int>|vec[int, string, ...bool];
+type OpenVectors = vec[...,]|vec[...mixed,];
+type Dictionaries = dict|dict<string, int>|dict[
+  'name' => string,
+  0 => int,
+  ...<string, float|int>,
+];
+type OpenDictionaries = dict[...<string, mixed>,];
+type ClassNames = classname<object>;
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (tuple_type
+          (primitive_type)
+          (primitive_type)
+          (trailing_type
+            type: (primitive_type)))
+        right: (tuple_type
+          (primitive_type)
+          (primitive_type)))
+      right: (tuple_type
+        (trailing_type
+          type: (primitive_type)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (function_type)
+      right: (function_type
+        (function_type_signature
+          (function_type_parameter
+            type: (primitive_type))
+          (function_type_parameter
+            type: (primitive_type))
+          return_type: (primitive_type)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (array_type)
+      right: (array_type
+        (type_argument_list
+          (type_argument
+            type: (primitive_type))
+          (type_argument
+            type: (primitive_type))))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (vector_type)
+        right: (vector_type
+          (type_argument_list
+            (type_argument
+              type: (primitive_type)))))
+      right: (vector_shape_type
+        (primitive_type)
+        (primitive_type)
+        (trailing_type
+          type: (primitive_type)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (vector_shape_type
+        (trailing_type))
+      right: (vector_shape_type
+        (trailing_type
+          type: (primitive_type)))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (union_type
+      left: (union_type
+        left: (dictionary_type)
+        right: (dictionary_type
+          (type_argument_list
+            (type_argument
+              type: (primitive_type))
+            (type_argument
+              type: (primitive_type)))))
+      right: (dictionary_shape_type
+        (dictionary_shape_entry
+          key: (string_literal
+            (single_quoted_string
+              (string_content)))
+          type: (primitive_type))
+        (dictionary_shape_entry
+          key: (integer_literal)
+          type: (primitive_type))
+        (dictionary_shape_rest
+          key: (primitive_type)
+          value: (union_type
+            left: (primitive_type)
+            right: (primitive_type))))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (dictionary_shape_type
+      (dictionary_shape_rest
+        key: (primitive_type)
+        value: (primitive_type))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (classname_type
+      type: (primitive_type))))

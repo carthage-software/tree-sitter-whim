@@ -1,0 +1,158 @@
+==================
+Strings, interpolation, escapes, and comments
+==================
+
+// line
+/* block */
+/** documentation */
+/**/
+
+$single = 'quote: \' slash: \\ unknown: \q';
+$double = "quote: \" slash: \\ newline: \n tab: \t dollar: \$";
+$escapes = "\x41 \101 \u{1f600} \e \v \f \r";
+$literalDollars = "$ $1";
+$name = 'world';
+$interpolated = "hello $name, {$object->property}!";
+
+---
+
+(source_file
+  (line_comment)
+  (block_comment)
+  (documentation_comment)
+  (block_comment)
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (single_quoted_string
+          (string_content)
+          (single_quoted_escape_sequence)
+          (string_content)
+          (single_quoted_escape_sequence)
+          (string_content)
+          (single_quoted_escape_sequence)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (double_quoted_string
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (double_quoted_string
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)
+          (string_content)
+          (double_quoted_escape_sequence)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (double_quoted_string
+          (string_content)
+          (string_content)
+          (string_content)
+          (string_content)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (single_quoted_string
+          (string_content)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (interpolated_string
+        (string_content)
+        (variable_interpolation
+          (variable))
+        (string_content)
+        (braced_interpolation
+          value: (property_access_expression
+            object: (variable)
+            property: (member_name
+              (identifier))))
+        (string_content)))))
+
+==================
+Unicode and keyword-looking name segments
+==================
+
+namespace Café\if;
+use Foo\class\Bar as Alias;
+const résumé = Foo\return\VALUE;
+function naïve(): \Root\namespace\Type {
+  return new Foo\match\Object();
+}
+
+---
+
+(source_file
+  (namespace_definition
+    name: (namespace_name
+      (qualified_namespace_name
+        (identifier)
+        (identifier)))
+    body: (namespace_implicit_body
+      (use_declaration
+        items: (use_item
+          name: (qualified_name
+            (identifier)
+            (identifier)
+            (identifier))
+          (use_alias
+            name: (identifier))))
+      (constant_declaration
+        name: (constant_name
+          (identifier))
+        value: (constant_access_expression
+          name: (qualified_name
+            (identifier)
+            (identifier)
+            (identifier))))
+      (function_declaration
+        name: (function_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (named_type
+            name: (fully_qualified_name
+              (identifier)
+              (identifier)
+              (identifier))))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (object_creation_expression
+                class: (qualified_name
+                  (identifier)
+                  (identifier)
+                  (identifier))
+                arguments: (argument_list)))))))))

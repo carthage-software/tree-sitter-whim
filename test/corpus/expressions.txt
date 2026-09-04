@@ -1,0 +1,588 @@
+==================
+Operators and precedence
+==================
+
+$value = $fallback ?? $enabled || $ready && $left == $right;
+$typed = $value is int|float;
+$cast = $value as string;
+$safe = $value ? as Box<int>;
+$result = $input |> transform(...) . $suffix | $mask ^ $xor & $and;
+$number = $left << 2 + 3 * -$right ** 2;
+$compare = $left <=> $right;
+$flags = !$a || ~$b;
+
+$a += 1;
+$a -= 1;
+$a *= 2;
+$a /= 2;
+$a %= 2;
+$a **= 2;
+$a .= 'x';
+$a &= 1;
+$a |= 2;
+$a ^= 3;
+$a <<= 1;
+$a >>= 1;
+$a ??= 0;
+$a &&= true;
+$a ||= false;
+++ $a;
+--$a;
+$a++;
+$a--;
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (binary_expression
+        left: (variable)
+        right: (binary_expression
+          left: (variable)
+          right: (binary_expression
+            left: (variable)
+            right: (comparison_expression
+              left: (variable)
+              operator: (comparison_operator)
+              right: (variable)))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (type_operation_expression
+        value: (variable)
+        type: (union_type
+          left: (primitive_type)
+          right: (primitive_type)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (type_operation_expression
+        value: (variable)
+        type: (primitive_type))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (type_operation_expression
+        value: (variable)
+        type: (named_type
+          name: (identifier)
+          (type_argument_list
+            (type_argument
+              type: (primitive_type)))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (binary_expression
+        left: (variable)
+        right: (binary_expression
+          left: (function_partial_application_expression
+            function: (constant_access_expression
+              name: (constant_name
+                (identifier)))
+            arguments: (partial_argument_list
+              (variadic_placeholder_argument)))
+          right: (binary_expression
+            left: (variable)
+            right: (binary_expression
+              left: (variable)
+              right: (binary_expression
+                left: (variable)
+                right: (variable))))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (binary_expression
+        left: (variable)
+        right: (binary_expression
+          left: (integer_literal)
+          right: (binary_expression
+            left: (integer_literal)
+            right: (unary_expression
+              operand: (binary_expression
+                left: (variable)
+                right: (integer_literal))))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (comparison_expression
+        left: (variable)
+        operator: (comparison_operator)
+        right: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (binary_expression
+        left: (unary_expression
+          operand: (variable))
+        right: (unary_expression
+          operand: (variable)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (string_literal
+        (single_quoted_string
+          (string_content)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (boolean_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (boolean_literal)))
+  (expression_statement
+    (update_expression
+      operand: (variable)))
+  (expression_statement
+    (update_expression
+      operand: (variable)))
+  (expression_statement
+    (update_expression
+      operand: (variable)))
+  (expression_statement
+    (update_expression
+      operand: (variable))))
+
+==================
+Calls, partial applications, and access
+==================
+
+$function();
+as($value);
+is(?);
+call::<int, string>(1, name: 'value',);
+$partial = call(1, ?, named: ?, ...);
+$object->method();
+$object->method::<int>(?);
+$object?->method(name: 'value');
+$object->property;
+$object?->property;
+ClassName::method();
+ClassName::<int>::method::<string>(...);
+ClassName::$property;
+ClassName::<int>::CONSTANT;
+self::method();
+parent::$property;
+static::CONSTANT;
+$value[0];
+$value[0] = 1;
+$value[] = 2;
+($value)[0];
+
+---
+
+(source_file
+  (expression_statement
+    (function_call_expression
+      function: (variable)
+      arguments: (argument_list)))
+  (expression_statement
+    (function_call_expression
+      function: (function_name)
+      arguments: (argument_list
+        (argument
+          (positional_argument
+            value: (variable))))))
+  (expression_statement
+    (function_partial_application_expression
+      function: (function_name)
+      arguments: (partial_argument_list
+        (placeholder_argument))))
+  (expression_statement
+    (function_call_expression
+      function: (constant_access_expression
+        name: (constant_name
+          (identifier)))
+      (turbofish
+        (primitive_type)
+        (primitive_type))
+      arguments: (argument_list
+        (argument
+          (positional_argument
+            value: (integer_literal)))
+        (argument
+          (named_argument
+            name: (member_name
+              (identifier))
+            value: (string_literal
+              (single_quoted_string
+                (string_content))))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (function_partial_application_expression
+        function: (constant_access_expression
+          name: (constant_name
+            (identifier)))
+        arguments: (partial_argument_list
+          (argument
+            (positional_argument
+              value: (integer_literal)))
+          (placeholder_argument)
+          (named_placeholder_argument
+            name: (member_name
+              (identifier)))
+          (variadic_placeholder_argument)))))
+  (expression_statement
+    (method_call_expression
+      object: (variable)
+      method: (member_name
+        (identifier))
+      arguments: (argument_list)))
+  (expression_statement
+    (method_partial_application_expression
+      object: (variable)
+      method: (member_name
+        (identifier))
+      (turbofish
+        (primitive_type))
+      arguments: (partial_argument_list
+        (placeholder_argument))))
+  (expression_statement
+    (null_safe_method_call_expression
+      object: (variable)
+      method: (member_name
+        (identifier))
+      arguments: (argument_list
+        (argument
+          (named_argument
+            name: (member_name
+              (identifier))
+            value: (string_literal
+              (single_quoted_string
+                (string_content))))))))
+  (expression_statement
+    (property_access_expression
+      object: (variable)
+      property: (member_name
+        (identifier))))
+  (expression_statement
+    (null_safe_property_access_expression
+      object: (variable)
+      property: (member_name
+        (identifier))))
+  (expression_statement
+    (static_method_call_expression
+      class: (constant_access_expression
+        name: (constant_name
+          (identifier)))
+      method: (member_name
+        (identifier))
+      arguments: (argument_list)))
+  (expression_statement
+    (static_method_partial_application_expression
+      class: (constant_access_expression
+        name: (constant_name
+          (identifier)))
+      class_arguments: (turbofish
+        (primitive_type))
+      method: (member_name
+        (identifier))
+      method_arguments: (turbofish
+        (primitive_type))
+      arguments: (partial_argument_list
+        (variadic_placeholder_argument))))
+  (expression_statement
+    (static_property_access_expression
+      class: (constant_access_expression
+        name: (constant_name
+          (identifier)))
+      property: (variable)))
+  (expression_statement
+    (class_constant_access_expression
+      class: (constant_access_expression
+        name: (constant_name
+          (identifier)))
+      class_arguments: (turbofish
+        (primitive_type))
+      constant: (member_name
+        (identifier))))
+  (expression_statement
+    (static_method_call_expression
+      class: (relative_scope)
+      method: (member_name
+        (identifier))
+      arguments: (argument_list)))
+  (expression_statement
+    (static_property_access_expression
+      class: (relative_scope)
+      property: (variable)))
+  (expression_statement
+    (class_constant_access_expression
+      class: (relative_scope)
+      constant: (member_name
+        (identifier))))
+  (expression_statement
+    (subscript_expression
+      value: (variable)
+      index: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (subscript_expression
+        value: (variable)
+        index: (integer_literal))
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (append_expression
+        value: (variable))
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (subscript_expression
+      value: (parenthesized_expression
+        (variable))
+      index: (integer_literal))))
+
+==================
+Literals, collections, objects, and closures
+==================
+
+$integers = (0, 1_000, 0xff, 0b1010, 0o755);
+$floats = (1.0, 1., .5, 1e3, 1.2e-3, 1_000.5_0e+1_0, .5_0);
+$values = (1, 2, ...$rest,);
+$vector = vec[1, ...$rest, 3,];
+$filled = vec[null; 8];
+$dictionary = dict['one' => 1, ...$other, 2 => true,];
+$object = new Box::<int>(value: 1);
+$dynamic = new $class();
+$relative = new self();
+
+$closure = function<T>(T $value) use ($suffix,): string {
+  return $value . $suffix;
+};
+$short = fn(int $value): int => $value * 2;
+$block = fn(int $value): int {
+  return $value * 2;
+};
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (tuple_expression
+        (integer_literal)
+        (integer_literal)
+        (integer_literal)
+        (integer_literal)
+        (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (tuple_expression
+        (float_literal)
+        (float_literal)
+        (float_literal)
+        (float_literal)
+        (float_literal)
+        (float_literal)
+        (float_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (tuple_expression
+        (integer_literal)
+        (integer_literal)
+        (tuple_rest_element
+          value: (variable)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (vector_expression
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (variable))
+        (vector_element
+          value: (integer_literal)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (vector_fill_expression
+        value: (null_literal)
+        size: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (dictionary_expression
+        (dictionary_entry
+          (dictionary_pair
+            key: (string_literal
+              (single_quoted_string
+                (string_content)))
+            value: (integer_literal)))
+        (dictionary_entry
+          (dictionary_spread
+            value: (variable)))
+        (dictionary_entry
+          (dictionary_pair
+            key: (integer_literal)
+            value: (boolean_literal))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (function_call_expression
+        function: (object_creation_expression
+          class: (identifier))
+        (turbofish
+          (primitive_type))
+        arguments: (argument_list
+          (argument
+            (named_argument
+              name: (member_name
+                (identifier))
+              value: (integer_literal)))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (object_creation_expression
+        class: (variable)
+        arguments: (argument_list))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (object_creation_expression
+        class: (relative_scope)
+        arguments: (argument_list))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (closure_expression
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        (closure_use_clause
+          (variable))
+        (return_type
+          type: (primitive_type))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (binary_expression
+                left: (variable)
+                right: (variable))))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (short_closure_expression
+        parameters: (parameter_list
+          (parameter
+            type: (primitive_type)
+            name: (variable)))
+        (return_type
+          type: (primitive_type))
+        body: (short_closure_body
+          value: (binary_expression
+            left: (variable)
+            right: (integer_literal))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (short_closure_expression
+        parameters: (parameter_list
+          (parameter
+            type: (primitive_type)
+            name: (variable)))
+        (return_type
+          type: (primitive_type))
+        body: (short_closure_body
+          (block
+            (expression_statement
+              (return_expression
+                value: (binary_expression
+                  left: (variable)
+                  right: (integer_literal))))))))))

@@ -1,0 +1,394 @@
+==================
+Namespaces, imports, and top-level declarations
+==================
+
+#!/usr/bin/env -S whim
+namespace Acme\Demo;
+
+use Whim\{Async\Future, Result as Outcome, _};
+use Spaced \ /* group trivia */ {One};
+use \Vendor\Package\Thing as Other;
+
+#[Marker]
+#[Route('/items', method: 'GET')]
+const ANSWER = 42;
+
+type Pair<out T: Countable + Traversable = string> = (T, T);
+newtype Identifier<in T> = int;
+
+#[EntryPoint]
+function transform<T>(#[Sensitive] readonly T $value = null): T {
+  return $value;
+}
+
+---
+
+(source_file
+  (shebang)
+  (namespace_definition
+    name: (namespace_name
+      (qualified_namespace_name
+        (identifier)
+        (identifier)))
+    body: (namespace_implicit_body
+      (use_declaration
+        items: (use_group
+          prefix: (identifier)
+          (use_item
+            name: (qualified_name
+              (identifier)
+              (identifier)))
+          (use_item
+            name: (identifier)
+            (use_alias
+              name: (identifier)))
+          (use_item
+            name: (identifier))))
+      (use_declaration
+        items: (use_group
+          prefix: (identifier)
+          (block_comment)
+          (use_item
+            name: (identifier))))
+      (use_declaration
+        items: (use_item
+          name: (fully_qualified_name
+            (identifier)
+            (identifier)
+            (identifier))
+          (use_alias
+            name: (identifier))))
+      (constant_declaration
+        (attribute_group
+          (attribute
+            name: (identifier)))
+        (attribute_group
+          (attribute
+            name: (identifier)
+            arguments: (argument_list
+              (argument
+                (positional_argument
+                  value: (string_literal
+                    (single_quoted_string
+                      (string_content)))))
+              (argument
+                (named_argument
+                  name: (member_name
+                    (identifier))
+                  value: (string_literal
+                    (single_quoted_string
+                      (string_content))))))))
+        name: (constant_name
+          (identifier))
+        value: (integer_literal))
+      (type_alias_declaration
+        name: (identifier)
+        (type_parameter_list
+          (type_parameter
+            variance: (type_variance)
+            name: (identifier)
+            (type_parameter_bound
+              type: (named_type
+                name: (identifier))
+              type: (named_type
+                name: (identifier)))
+            (type_parameter_default
+              type: (primitive_type))))
+        type: (tuple_type
+          (named_type
+            name: (identifier))
+          (named_type
+            name: (identifier))))
+      (newtype_declaration
+        name: (identifier)
+        (type_parameter_list
+          (type_parameter
+            variance: (type_variance)
+            name: (identifier)))
+        type: (primitive_type))
+      (function_declaration
+        (attribute_group
+          (attribute
+            name: (identifier)))
+        name: (function_name
+          (identifier))
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            (attribute_group
+              (attribute
+                name: (identifier)))
+            modifier: (member_modifier)
+            type: (named_type
+              name: (identifier))
+            name: (variable)
+            (parameter_default
+              value: (null_literal))))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (variable))))))))
+
+==================
+Classes, interfaces, enums, and members
+==================
+
+#[Entity]
+public final readonly class Box<out T>
+  extends Base<T>
+  implements First, Second<T>
+  for Permit\One, \Permit\Two {
+  #[Label]
+  public const string NAME = 'box';
+  private static const FLAG = true;
+
+  public readonly T $value;
+  protected static int $count = 0;
+
+  public function __construct(public T $value) {}
+  abstract protected function missing(): void;
+
+  #[Getter]
+  public final function getValue<U = T>(U $fallback = null): T {
+    return $this->value;
+  }
+}
+
+interface Source<out T> extends Base<T>, \Other\Source<T> for FileSource {
+  public function read(): T;
+}
+
+enum Status<T>: string implements Named {
+  case Ready = 'ready';
+  #[Deprecated]
+  case Pending;
+
+  public function label(): string {
+    return self::Ready;
+  }
+}
+
+---
+
+(source_file
+  (class_declaration
+    (attribute_group
+      (attribute
+        name: (identifier)))
+    modifier: (class_modifier)
+    modifier: (class_modifier)
+    modifier: (class_modifier)
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        variance: (type_variance)
+        name: (identifier)))
+    (extends_clause
+      type: (named_type
+        name: (identifier)
+        (type_argument_list
+          (type_argument
+            type: (named_type
+              name: (identifier))))))
+    (implements_clause
+      type: (named_type
+        name: (identifier))
+      type: (named_type
+        name: (identifier)
+        (type_argument_list
+          (type_argument
+            type: (named_type
+              name: (identifier))))))
+    (sealed_permissions
+      type: (qualified_name
+        (identifier)
+        (identifier))
+      type: (fully_qualified_name
+        (identifier)
+        (identifier)))
+    body: (class_body
+      (class_constant_declaration
+        (attribute_group
+          (attribute
+            name: (identifier)))
+        modifier: (member_modifier)
+        type: (primitive_type)
+        name: (member_name
+          (identifier))
+        value: (string_literal
+          (single_quoted_string
+            (string_content))))
+      (class_constant_declaration
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        value: (boolean_literal))
+      (property_declaration
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        type: (named_type
+          name: (identifier))
+        name: (variable))
+      (property_declaration
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        type: (primitive_type)
+        name: (variable)
+        (property_default
+          value: (integer_literal)))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list
+          (parameter
+            modifier: (member_modifier)
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        body: (block))
+      (method_declaration
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type)))
+      (method_declaration
+        (attribute_group
+          (attribute
+            name: (identifier)))
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)
+            (type_parameter_default
+              type: (named_type
+                name: (identifier)))))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)
+            (parameter_default
+              value: (null_literal))))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (property_access_expression
+                object: (variable)
+                property: (member_name
+                  (identifier)))))))))
+  (interface_declaration
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        variance: (type_variance)
+        name: (identifier)))
+    (extends_clause
+      type: (named_type
+        name: (identifier)
+        (type_argument_list
+          (type_argument
+            type: (named_type
+              name: (identifier)))))
+      type: (named_type
+        name: (fully_qualified_name
+          (identifier)
+          (identifier))
+        (type_argument_list
+          (type_argument
+            type: (named_type
+              name: (identifier))))))
+    (sealed_permissions
+      type: (identifier))
+    body: (class_body
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (named_type
+            name: (identifier))))))
+  (enum_declaration
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    (enum_backing_type
+      type: (primitive_type))
+    (implements_clause
+      type: (named_type
+        name: (identifier)))
+    body: (class_body
+      (enum_case_declaration
+        name: (member_name
+          (identifier))
+        (enum_case_value
+          value: (string_literal
+            (single_quoted_string
+              (string_content)))))
+      (enum_case_declaration
+        (attribute_group
+          (attribute
+            name: (identifier)))
+        name: (member_name
+          (identifier)))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (class_constant_access_expression
+                class: (relative_scope)
+                constant: (member_name
+                  (identifier))))))))))
+
+==================
+Braced and fully qualified namespaces
+==================
+
+namespace \Root\Nested {
+  const VALUE = 1;
+}
+
+namespace Root\Other {}
+
+---
+
+(source_file
+  (namespace_definition
+    name: (namespace_name
+      (fully_qualified_namespace_name
+        (identifier)
+        (identifier)))
+    body: (namespace_body
+      (constant_declaration
+        name: (constant_name
+          (identifier))
+        value: (integer_literal))))
+  (namespace_definition
+    name: (namespace_name
+      (qualified_namespace_name
+        (identifier)
+        (identifier)))
+    body: (namespace_body)))

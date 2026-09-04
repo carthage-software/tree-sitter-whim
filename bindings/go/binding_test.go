@@ -9,7 +9,15 @@ import (
 
 func TestCanLoadGrammar(t *testing.T) {
 	language := tree_sitter.NewLanguage(tree_sitter_whim.Language())
-	if language == nil {
-		t.Errorf("Error loading Whim grammar")
+	parser := tree_sitter.NewParser()
+	defer parser.Close()
+	if err := parser.SetLanguage(language); err != nil {
+		t.Fatalf("Error loading Whim grammar: %v", err)
+	}
+
+	tree := parser.Parse([]byte("final class Box<T> {}\n$box = new Box::<string>();"), nil)
+	defer tree.Close()
+	if tree.RootNode().HasError() {
+		t.Error("Error parsing Whim syntax")
 	}
 }

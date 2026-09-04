@@ -1,0 +1,231 @@
+==================
+Patterns
+==================
+
+$result = match ($value) {
+  ($wrapped @ int) => $wrapped,
+  $number @ int|float => $number,
+  ($x @ int, $y @ int) => $x + $y,
+  ($head, ...$tail) @ (int, ...int) => $head,
+  vec[$first, ...$rest] @ vec[int, ...int] => $first,
+  vec[...,] => null,
+  dict[
+    'name' => $name @ string,
+    -1 => $negative @ int,
+    ...$remaining,
+  ] @ dict['name' => string, ...<string, float|int>] => $name,
+  dict[...,] => null,
+  $_ => null,
+};
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (match_expression
+        value: (variable)
+        (match_arm
+          pattern: (parenthesized_pattern
+            (as_pattern
+              target: (variable_pattern
+                (variable))
+              pattern: (type_pattern
+                (primitive_type))))
+          value: (variable))
+        (match_arm
+          pattern: (as_pattern
+            target: (variable_pattern
+              (variable))
+            pattern: (union_pattern
+              left: (type_pattern
+                (primitive_type))
+              right: (type_pattern
+                (primitive_type))))
+          value: (variable))
+        (match_arm
+          pattern: (tuple_pattern
+            (as_pattern
+              target: (variable_pattern
+                (variable))
+              pattern: (type_pattern
+                (primitive_type)))
+            (as_pattern
+              target: (variable_pattern
+                (variable))
+              pattern: (type_pattern
+                (primitive_type))))
+          value: (binary_expression
+            left: (variable)
+            right: (variable)))
+        (match_arm
+          pattern: (as_pattern
+            target: (tuple_pattern
+              (variable_pattern
+                (variable))
+              (trailing_pattern
+                pattern: (variable_pattern
+                  (variable))))
+            pattern: (type_pattern
+              (tuple_type
+                (primitive_type)
+                (trailing_type
+                  type: (primitive_type)))))
+          value: (variable))
+        (match_arm
+          pattern: (as_pattern
+            target: (vector_pattern
+              (variable_pattern
+                (variable))
+              (trailing_pattern
+                pattern: (variable_pattern
+                  (variable))))
+            pattern: (type_pattern
+              (vector_shape_type
+                (primitive_type)
+                (trailing_type
+                  type: (primitive_type)))))
+          value: (variable))
+        (match_arm
+          pattern: (type_pattern
+            (vector_shape_type
+              (trailing_type)))
+          value: (null_literal))
+        (match_arm
+          pattern: (as_pattern
+            target: (dictionary_pattern
+              (dictionary_pattern_entry
+                key: (string_literal
+                  (single_quoted_string
+                    (string_content)))
+                pattern: (as_pattern
+                  target: (variable_pattern
+                    (variable))
+                  pattern: (type_pattern
+                    (primitive_type))))
+              (dictionary_pattern_entry
+                key: (signed_integer_literal
+                  (integer_literal))
+                pattern: (as_pattern
+                  target: (variable_pattern
+                    (variable))
+                  pattern: (type_pattern
+                    (primitive_type))))
+              (trailing_pattern
+                pattern: (variable_pattern
+                  (variable))))
+            pattern: (type_pattern
+              (dictionary_shape_type
+                (dictionary_shape_entry
+                  key: (string_literal
+                    (single_quoted_string
+                      (string_content)))
+                  type: (primitive_type))
+                (dictionary_shape_rest
+                  key: (primitive_type)
+                  value: (union_type
+                    left: (primitive_type)
+                    right: (primitive_type))))))
+          value: (variable))
+        (match_arm
+          pattern: (dictionary_pattern
+            (trailing_pattern))
+          value: (null_literal))
+        (match_arm
+          pattern: (variable_pattern
+            (variable))
+          value: (null_literal))))))
+
+==================
+Assignment and binding targets
+==================
+
+($first, $second = 2, ...$rest) = values();
+dict['name' => $name, 0 => $zero] = values();
+($object->property) = 1;
+$object->items[] = 2;
+
+using (
+  ($head, ...$tail) = values(),
+  dict['key' => $bound] = values(),
+) {}
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (tuple_destructure
+        (variable)
+        (destructure_default
+          target: (variable)
+          value: (integer_literal))
+        (destructure_rest
+          target: (variable)))
+      operator: (assignment_operator)
+      right: (function_call_expression
+        function: (constant_access_expression
+          name: (constant_name
+            (identifier)))
+        arguments: (argument_list))))
+  (expression_statement
+    (assignment_expression
+      left: (dictionary_destructure
+        (dictionary_destructure_entry
+          key: (string_literal
+            (single_quoted_string
+              (string_content)))
+          target: (variable))
+        (dictionary_destructure_entry
+          key: (integer_literal)
+          target: (variable)))
+      operator: (assignment_operator)
+      right: (function_call_expression
+        function: (constant_access_expression
+          name: (constant_name
+            (identifier)))
+        arguments: (argument_list))))
+  (expression_statement
+    (assignment_expression
+      left: (parenthesized_assignment_target
+        (property_access_expression
+          object: (variable)
+          property: (member_name
+            (identifier))))
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (append_expression
+        value: (property_access_expression
+          object: (variable)
+          property: (member_name
+            (identifier))))
+      operator: (assignment_operator)
+      right: (integer_literal)))
+  (using_statement
+    (using_binding
+      target: (tuple_binding_target
+        (variable)
+        (trailing_binding_target
+          target: (variable)))
+      value: (function_call_expression
+        function: (constant_access_expression
+          name: (constant_name
+            (identifier)))
+        arguments: (argument_list)))
+    (using_binding
+      target: (dictionary_binding_target
+        (dictionary_binding_entry
+          key: (string_literal
+            (single_quoted_string
+              (string_content)))
+          target: (variable)))
+      value: (function_call_expression
+        function: (constant_access_expression
+          name: (constant_name
+            (identifier)))
+        arguments: (argument_list)))
+    body: (block)))

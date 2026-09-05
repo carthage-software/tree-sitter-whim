@@ -22,9 +22,14 @@ export default [
     },
     rules: {
       "comma-dangle": ["error", "always-multiline"],
+      "no-control-regex": "off",
       "no-trailing-spaces": "error",
       "no-unused-vars": ["error", { argsIgnorePattern: "^_$" }],
-      quotes: ["error", "single", { allowTemplateLiterals: true }],
+      quotes: [
+        "error",
+        "double",
+        { allowTemplateLiterals: true, avoidEscape: true },
+      ],
       semi: "error",
     },
   },

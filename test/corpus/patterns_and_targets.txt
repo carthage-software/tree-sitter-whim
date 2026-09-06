@@ -82,16 +82,16 @@ $result = match ($value) {
               (trailing_pattern
                 pattern: (variable_pattern
                   (variable))))
-            pattern: (type_pattern
-              (vector_shape_type
-                (primitive_type)
-                (trailing_type
-                  type: (primitive_type)))))
+            pattern: (vector_pattern
+              (type_pattern
+                (primitive_type))
+              (trailing_pattern
+                pattern: (type_pattern
+                  (primitive_type)))))
           value: (variable))
         (match_arm
-          pattern: (type_pattern
-            (vector_shape_type
-              (trailing_type)))
+          pattern: (vector_pattern
+            (trailing_pattern))
           value: (null_literal))
         (match_arm
           pattern: (as_pattern
@@ -229,3 +229,140 @@ using (
             (identifier)))
         arguments: (argument_list)))
     body: (block)))
+
+==================
+Object and intersection patterns
+==================
+
+$result = match ($value) {
+  #{ name: $name @ string, age: $age @ int } => $name,
+  #{ $value, nested: #{ code: $code @ int, ... }, ... } => $value,
+  Ok<string> & #{ value: '' } => 'empty',
+  Ok<string> & #{ $value } => $value,
+  ($x, $y) & (int, int) => $x + $y,
+  int & string => 'impossible',
+  $both @ Foo & #{ $value } => $both,
+  #{ ..., } => null,
+  $_ => null,
+};
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      (variable)
+      (assignment_operator)
+      (match_expression
+        (variable)
+        (match_arm
+          (object_pattern
+            (object_pattern_entry
+              (member_name
+                (identifier))
+              (as_pattern
+                (variable_pattern
+                  (variable))
+                (type_pattern
+                  (primitive_type))))
+            (object_pattern_entry
+              (member_name
+                (identifier))
+              (as_pattern
+                (variable_pattern
+                  (variable))
+                (type_pattern
+                  (primitive_type)))))
+          (variable))
+        (match_arm
+          (object_pattern
+            (object_pattern_entry
+              (variable))
+            (object_pattern_entry
+              (member_name
+                (identifier))
+              (object_pattern
+                (object_pattern_entry
+                  (member_name
+                    (identifier))
+                  (as_pattern
+                    (variable_pattern
+                      (variable))
+                    (type_pattern
+                      (primitive_type))))
+                (object_shape_rest)))
+            (object_shape_rest))
+          (variable))
+        (match_arm
+          (intersection_pattern
+            (type_pattern
+              (named_type
+                (identifier)
+                (type_argument_list
+                  (type_argument
+                    (primitive_type)))))
+            (object_pattern
+              (object_pattern_entry
+                (member_name
+                  (identifier))
+                (type_pattern
+                  (literal_type
+                    (string_literal
+                      (single_quoted_string)))))))
+          (string_literal
+            (single_quoted_string
+              (string_content))))
+        (match_arm
+          (intersection_pattern
+            (type_pattern
+              (named_type
+                (identifier)
+                (type_argument_list
+                  (type_argument
+                    (primitive_type)))))
+            (object_pattern
+              (object_pattern_entry
+                (variable))))
+          (variable))
+        (match_arm
+          (intersection_pattern
+            (tuple_pattern
+              (variable_pattern
+                (variable))
+              (variable_pattern
+                (variable)))
+            (type_pattern
+              (tuple_type
+                (primitive_type)
+                (primitive_type))))
+          (binary_expression
+            (variable)
+            (variable)))
+        (match_arm
+          (type_pattern
+            (intersection_type
+              (primitive_type)
+              (primitive_type)))
+          (string_literal
+            (single_quoted_string
+              (string_content))))
+        (match_arm
+          (as_pattern
+            (variable_pattern
+              (variable))
+            (intersection_pattern
+              (type_pattern
+                (named_type
+                  (identifier)))
+              (object_pattern
+                (object_pattern_entry
+                  (variable)))))
+          (variable))
+        (match_arm
+          (object_pattern
+            (object_shape_rest))
+          (null_literal))
+        (match_arm
+          (variable_pattern
+            (variable))
+          (null_literal))))))

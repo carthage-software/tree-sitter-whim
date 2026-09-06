@@ -27,6 +27,7 @@ const PREC = {
   POSTFIX: 17,
   PATTERN_AS: 20,
   PATTERN_UNION: 21,
+  PATTERN_INTERSECTION: 22,
   TYPE_UNION: 20,
   TYPE_INTERSECTION: 21,
   TYPE_NEGATION: 22,
@@ -158,6 +159,7 @@ export default grammar({
     $._literal,
     $._local_identifier,
     $._name,
+    $._non_type_pattern_primary,
     $._pattern_primary,
     $._soft_function_name,
     $._type_primary,
@@ -180,8 +182,10 @@ export default grammar({
     [$.self_type],
     [$.signed_integer_literal, $.dictionary_shape_entry],
     [$.trailing_pattern, $.trailing_type],
+    [$.trailing_pattern, $.dictionary_shape_rest],
     [$.vector_pattern, $.vector_shape_type],
     [$.dictionary_pattern, $.dictionary_shape_type],
+    [$.object_pattern, $.object_shape_type],
     [$.vector_expression, $.vector_fill_expression, $.constant_name],
     [$.dictionary_expression, $.constant_name],
     [$.array_type],
@@ -1019,13 +1023,22 @@ export default grammar({
     match_arm: ($) =>
       seq(field("pattern", $._pattern), "=>", field("value", $._expression)),
 
-    _pattern: ($) => choice($.as_pattern, $.union_pattern, $._pattern_primary),
+    _pattern: ($) =>
+      choice(
+        $.as_pattern,
+        $.union_pattern,
+        $.intersection_pattern,
+        $._pattern_primary,
+      ),
 
     as_pattern: ($) =>
       prec.right(
         PREC.PATTERN_AS,
         seq(
-          field("target", $._pattern_primary),
+          field(
+            "target",
+            choice($.intersection_pattern, $._pattern_primary),
+          ),
           "@",
           field("pattern", $._pattern),
         ),
@@ -1037,14 +1050,37 @@ export default grammar({
         seq(field("left", $._pattern), "|", field("right", $._pattern)),
       ),
 
+    intersection_pattern: ($) =>
+      prec.left(
+        PREC.PATTERN_INTERSECTION,
+        choice(
+          seq(
+            field(
+              "left",
+              choice($.intersection_pattern, $._non_type_pattern_primary),
+            ),
+            "&",
+            field("right", $._pattern_primary),
+          ),
+          seq(
+            field("left", $.type_pattern),
+            "&",
+            field("right", $._non_type_pattern_primary),
+          ),
+        ),
+      ),
+
     _pattern_primary: ($) =>
+      choice($.type_pattern, $._non_type_pattern_primary),
+
+    _non_type_pattern_primary: ($) =>
       choice(
         $.variable_pattern,
-        $.type_pattern,
         $.parenthesized_pattern,
         $.tuple_pattern,
         $.vector_pattern,
         $.dictionary_pattern,
+        $.object_pattern,
       ),
 
     variable_pattern: ($) => $.variable,
@@ -1071,37 +1107,43 @@ export default grammar({
       ),
 
     vector_pattern: ($) =>
-      seq(
-        "vec",
-        "[",
-        optional(
-          choice(
-            seq($.trailing_pattern, optional(",")),
-            seq(
-              commaSep1($._pattern),
-              optional(seq(",", $.trailing_pattern)),
-              optional(","),
+      prec.dynamic(
+        1,
+        seq(
+          "vec",
+          "[",
+          optional(
+            choice(
+              seq($.trailing_pattern, optional(",")),
+              seq(
+                commaSep1($._pattern),
+                optional(seq(",", $.trailing_pattern)),
+                optional(","),
+              ),
             ),
           ),
+          "]",
         ),
-        "]",
       ),
 
     dictionary_pattern: ($) =>
-      seq(
-        "dict",
-        "[",
-        optional(
-          choice(
-            seq($.trailing_pattern, optional(",")),
-            seq(
-              commaSep1($.dictionary_pattern_entry),
-              optional(seq(",", $.trailing_pattern)),
-              optional(","),
+      prec.dynamic(
+        1,
+        seq(
+          "dict",
+          "[",
+          optional(
+            choice(
+              seq($.trailing_pattern, optional(",")),
+              seq(
+                commaSep1($.dictionary_pattern_entry),
+                optional(seq(",", $.trailing_pattern)),
+                optional(","),
+              ),
             ),
           ),
+          "]",
         ),
-        "]",
       ),
 
     dictionary_pattern_entry: ($) =>
@@ -1109,6 +1151,35 @@ export default grammar({
         field("key", choice($.string_literal, $.signed_integer_literal)),
         "=>",
         field("pattern", $._pattern),
+      ),
+
+    object_pattern: ($) =>
+      prec.dynamic(
+        1,
+        seq(
+          "#{",
+          optional(
+            choice(
+              seq($.object_shape_rest, optional(",")),
+              seq(
+                commaSep1($.object_pattern_entry),
+                optional(seq(",", $.object_shape_rest)),
+                optional(","),
+              ),
+            ),
+          ),
+          "}",
+        ),
+      ),
+
+    object_pattern_entry: ($) =>
+      choice(
+        seq(
+          field("property", $.member_name),
+          ":",
+          field("pattern", $._pattern),
+        ),
+        field("shorthand", $.variable),
       ),
 
     trailing_pattern: ($) => seq("...", optional(field("pattern", $._pattern))),
@@ -1718,6 +1789,7 @@ export default grammar({
         $.vector_shape_type,
         $.dictionary_type,
         $.dictionary_shape_type,
+        $.object_shape_type,
         $.classname_type,
       ),
 
@@ -1894,7 +1966,43 @@ export default grammar({
       ),
 
     dictionary_shape_rest: ($) =>
-      seq("...", "<", field("key", $._type), ",", field("value", $._type), ">"),
+      seq(
+        "...",
+        optional(
+          seq(
+            "<",
+            field("key", $._type),
+            ",",
+            field("value", $._type),
+            ">",
+          ),
+        ),
+      ),
+
+    object_shape_type: ($) =>
+      seq(
+        "#{",
+        optional(
+          choice(
+            seq($.object_shape_rest, optional(",")),
+            seq(
+              commaSep1($.object_shape_entry),
+              optional(seq(",", $.object_shape_rest)),
+              optional(","),
+            ),
+          ),
+        ),
+        "}",
+      ),
+
+    object_shape_entry: ($) =>
+      seq(
+        field("property", $.member_name),
+        ":",
+        field("type", $._type),
+      ),
+
+    object_shape_rest: (_) => "...",
 
     classname_type: ($) => seq("classname", "<", field("type", $._type), ">"),
 

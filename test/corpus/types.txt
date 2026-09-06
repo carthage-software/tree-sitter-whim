@@ -264,3 +264,66 @@ type ClassNames = classname<object>;
     name: (identifier)
     type: (classname_type
       type: (primitive_type))))
+
+==================
+Open dictionary and object shape types
+==================
+
+type OpenDictionary = dict['name' => string, ...];
+type AnyDictionary = dict[...];
+type ExactObject = #{ name: string, age: 0..=150 };
+type OpenObject<T> = #{ value: T, ... };
+type EmptyObject = #{};
+type AnyObject = #{ ..., };
+
+---
+
+(source_file
+  (type_alias_declaration
+    (identifier)
+    (dictionary_shape_type
+      (dictionary_shape_entry
+        (string_literal
+          (single_quoted_string
+            (string_content)))
+        (primitive_type))
+      (dictionary_shape_rest)))
+  (type_alias_declaration
+    (identifier)
+    (dictionary_shape_type
+      (dictionary_shape_rest)))
+  (type_alias_declaration
+    (identifier)
+    (object_shape_type
+      (object_shape_entry
+        (member_name
+          (identifier))
+        (primitive_type))
+      (object_shape_entry
+        (member_name
+          (identifier))
+        (integer_range_type
+          (signed_integer_literal
+            (integer_literal))
+          (range_operator)
+          (signed_integer_literal
+            (integer_literal))))))
+  (type_alias_declaration
+    (identifier)
+    (type_parameter_list
+      (type_parameter
+        (identifier)))
+    (object_shape_type
+      (object_shape_entry
+        (member_name
+          (identifier))
+        (named_type
+          (identifier)))
+      (object_shape_rest)))
+  (type_alias_declaration
+    (identifier)
+    (object_shape_type))
+  (type_alias_declaration
+    (identifier)
+    (object_shape_type
+      (object_shape_rest))))

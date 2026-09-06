@@ -116,6 +116,7 @@
   "]"
   "{"
   "}"
+  "#{"
 ] @punctuation.bracket
 
 [
@@ -146,6 +147,8 @@
 (parameter name: (variable) @variable.parameter)
 (property_declaration name: (variable) @property)
 (static_property_access_expression property: (variable) @property)
+(object_shape_entry property: (member_name) @property)
+(object_pattern_entry property: (member_name) @property)
 
 ; Namespaces and imports
 

@@ -266,6 +266,14 @@
         "named": true
       },
       {
+        "type": "intersection_pattern",
+        "named": true
+      },
+      {
+        "type": "object_pattern",
+        "named": true
+      },
+      {
         "type": "parenthesized_pattern",
         "named": true
       },
@@ -423,6 +431,10 @@
       },
       {
         "type": "negative_literal_type",
+        "named": true
+      },
+      {
+        "type": "object_shape_type",
         "named": true
       },
       {
@@ -780,6 +792,14 @@
         "types": [
           {
             "type": "dictionary_pattern",
+            "named": true
+          },
+          {
+            "type": "intersection_pattern",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           },
           {
@@ -3499,7 +3519,7 @@
     "fields": {
       "key": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_type",
@@ -3509,7 +3529,7 @@
       },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_type",
@@ -5235,6 +5255,84 @@
     }
   },
   {
+    "type": "intersection_pattern",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dictionary_pattern",
+            "named": true
+          },
+          {
+            "type": "intersection_pattern",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
+            "named": true
+          },
+          {
+            "type": "parenthesized_pattern",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
+            "named": true
+          },
+          {
+            "type": "type_pattern",
+            "named": true
+          },
+          {
+            "type": "variable_pattern",
+            "named": true
+          },
+          {
+            "type": "vector_pattern",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dictionary_pattern",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
+            "named": true
+          },
+          {
+            "type": "parenthesized_pattern",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
+            "named": true
+          },
+          {
+            "type": "type_pattern",
+            "named": true
+          },
+          {
+            "type": "variable_pattern",
+            "named": true
+          },
+          {
+            "type": "vector_pattern",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "intersection_type",
     "named": true,
     "fields": {
@@ -6951,6 +7049,111 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "object_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "object_pattern_entry",
+          "named": true
+        },
+        {
+          "type": "object_shape_rest",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "object_pattern_entry",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_pattern",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "member_name",
+            "named": true
+          }
+        ]
+      },
+      "shorthand": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "object_shape_entry",
+    "named": true,
+    "fields": {
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "member_name",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "object_shape_rest",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "object_shape_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "object_shape_entry",
+          "named": true
+        },
+        {
+          "type": "object_shape_rest",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -9765,6 +9968,10 @@
           "named": true
         },
         {
+          "type": "object_shape_type",
+          "named": true
+        },
+        {
           "type": "parent_type",
           "named": true
         },
@@ -10814,6 +11021,10 @@
   },
   {
     "type": "#[",
+    "named": false
+  },
+  {
+    "type": "#{",
     "named": false
   },
   {

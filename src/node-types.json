@@ -3462,6 +3462,10 @@
         "required": true,
         "types": [
           {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
             "type": "signed_integer_literal",
             "named": true
           },
@@ -3491,6 +3495,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
           {
             "type": "integer_literal",
             "named": true

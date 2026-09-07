@@ -1148,7 +1148,14 @@ export default grammar({
 
     dictionary_pattern_entry: ($) =>
       seq(
-        field("key", choice($.string_literal, $.signed_integer_literal)),
+        field(
+          "key",
+          choice(
+            $.string_literal,
+            $.signed_integer_literal,
+            $.boolean_literal,
+          ),
+        ),
         "=>",
         field("pattern", $._pattern),
       ),
@@ -1960,7 +1967,10 @@ export default grammar({
 
     dictionary_shape_entry: ($) =>
       seq(
-        field("key", choice($.string_literal, $.integer_literal)),
+        field(
+          "key",
+          choice($.string_literal, $.integer_literal, $.boolean_literal),
+        ),
         "=>",
         field("type", $._type),
       ),

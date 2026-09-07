@@ -271,6 +271,7 @@ Open dictionary and object shape types
 
 type OpenDictionary = dict['name' => string, ...];
 type AnyDictionary = dict[...];
+type BooleanPartition<T> = dict[true => vec<T>, false => vec<T>];
 type ExactObject = #{ name: string, age: 0..=150 };
 type OpenObject<T> = #{ value: T, ... };
 type EmptyObject = #{};
@@ -292,6 +293,26 @@ type AnyObject = #{ ..., };
     (identifier)
     (dictionary_shape_type
       (dictionary_shape_rest)))
+  (type_alias_declaration
+    (identifier)
+    (type_parameter_list
+      (type_parameter
+        (identifier)))
+    (dictionary_shape_type
+      (dictionary_shape_entry
+        (boolean_literal)
+        (vector_type
+          (type_argument_list
+            (type_argument
+              (named_type
+                (identifier))))))
+      (dictionary_shape_entry
+        (boolean_literal)
+        (vector_type
+          (type_argument_list
+            (type_argument
+              (named_type
+                (identifier))))))))
   (type_alias_declaration
     (identifier)
     (object_shape_type

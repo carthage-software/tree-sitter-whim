@@ -4904,6 +4904,10 @@
               {
                 "type": "SYMBOL",
                 "name": "signed_integer_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "boolean_literal"
               }
             ]
           }
@@ -10114,6 +10118,10 @@
               {
                 "type": "SYMBOL",
                 "name": "integer_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "boolean_literal"
               }
             ]
           }

@@ -366,3 +366,45 @@ $result = match ($value) {
           (variable_pattern
             (variable))
           (null_literal))))))
+
+==================
+Boolean dictionary pattern keys
+==================
+
+$result = match ($partition) {
+  dict[true => $yes @ int, false => $no @ string] => ($yes, $no),
+  $_ => null,
+};
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      (variable)
+      (assignment_operator)
+      (match_expression
+        (variable)
+        (match_arm
+          (dictionary_pattern
+            (dictionary_pattern_entry
+              (boolean_literal)
+              (as_pattern
+                (variable_pattern
+                  (variable))
+                (type_pattern
+                  (primitive_type))))
+            (dictionary_pattern_entry
+              (boolean_literal)
+              (as_pattern
+                (variable_pattern
+                  (variable))
+                (type_pattern
+                  (primitive_type)))))
+          (tuple_expression
+            (variable)
+            (variable)))
+        (match_arm
+          (variable_pattern
+            (variable))
+          (null_literal))))))

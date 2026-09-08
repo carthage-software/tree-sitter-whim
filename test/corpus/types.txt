@@ -266,12 +266,18 @@ type ClassNames = classname<object>;
       type: (primitive_type))))
 
 ==================
-Open dictionary and object shape types
+Open and named object shape types
 ==================
 
 type OpenDictionary = dict['name' => string, ...];
 type AnyDictionary = dict[...];
 type BooleanPartition<T> = dict[true => vec<T>, false => vec<T>];
+type Named<T> = \Example\Box<T> #{
+  value: T,
+  child: Child #{ name: string, ... },
+  ...,
+};
+type Combined = Item #{ value: string } | !Item #{ value: int };
 type ExactObject = #{ name: string, age: 0..=150 };
 type OpenObject<T> = #{ value: T, ... };
 type EmptyObject = #{};
@@ -313,6 +319,55 @@ type AnyObject = #{ ..., };
             (type_argument
               (named_type
                 (identifier))))))))
+  (type_alias_declaration
+    (identifier)
+    (type_parameter_list
+      (type_parameter
+        (identifier)))
+    (named_shape_type
+      (fully_qualified_name
+        (identifier)
+        (identifier))
+      (type_argument_list
+        (type_argument
+          (named_type
+            (identifier))))
+      (object_shape_type
+        (object_shape_entry
+          (member_name
+            (identifier))
+          (named_type
+            (identifier)))
+        (object_shape_entry
+          (member_name
+            (identifier))
+          (named_shape_type
+            (identifier)
+            (object_shape_type
+              (object_shape_entry
+                (member_name
+                  (identifier))
+                (primitive_type))
+              (object_shape_rest))))
+        (object_shape_rest))))
+  (type_alias_declaration
+    (identifier)
+    (union_type
+      (named_shape_type
+        (identifier)
+        (object_shape_type
+          (object_shape_entry
+            (member_name
+              (identifier))
+            (primitive_type))))
+      (negated_type
+        (named_shape_type
+          (identifier)
+          (object_shape_type
+            (object_shape_entry
+              (member_name
+                (identifier))
+              (primitive_type)))))))
   (type_alias_declaration
     (identifier)
     (object_shape_type

@@ -69,8 +69,9 @@ static bool is_reserved_identifier(const char *text, size_t length) {
          WORD("discard") || WORD("drop") || WORD("embed") || WORD("exit") ||
          WORD("file") || WORD("length") || WORD("panic") || WORD("remove") ||
          WORD("remove_first") || WORD("remove_last") || WORD("require") ||
-         WORD("require_once") || WORD("swap_remove") || WORD("write") ||
-         WORD("write_error") || WORD("write_error_line") || WORD("write_line");
+         WORD("require_once") || WORD("sequence") || WORD("swap_remove") ||
+         WORD("write") || WORD("write_error") || WORD("write_error_line") ||
+         WORD("write_line");
 }
 
 #undef WORD

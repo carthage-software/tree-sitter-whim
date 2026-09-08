@@ -176,6 +176,10 @@
         "named": true
       },
       {
+        "type": "sequence_construct",
+        "named": true
+      },
+      {
         "type": "short_closure_expression",
         "named": true
       },
@@ -270,6 +274,10 @@
         "named": true
       },
       {
+        "type": "named_object_pattern",
+        "named": true
+      },
+      {
         "type": "object_pattern",
         "named": true
       },
@@ -303,10 +311,6 @@
     "type": "_statement",
     "named": true,
     "subtypes": [
-      {
-        "type": "block",
-        "named": true
-      },
       {
         "type": "class_declaration",
         "named": true
@@ -419,6 +423,10 @@
       },
       {
         "type": "literal_type",
+        "named": true
+      },
+      {
+        "type": "named_shape_type",
         "named": true
       },
       {
@@ -652,6 +660,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -796,6 +808,10 @@
           },
           {
             "type": "intersection_pattern",
+            "named": true
+          },
+          {
+            "type": "named_object_pattern",
             "named": true
           },
           {
@@ -1094,6 +1110,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -1404,6 +1424,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -1724,6 +1748,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -2123,6 +2151,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -2644,6 +2676,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -2897,6 +2933,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -4263,6 +4303,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -4613,6 +4657,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -4943,6 +4991,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -5279,6 +5331,10 @@
             "named": true
           },
           {
+            "type": "named_object_pattern",
+            "named": true
+          },
+          {
             "type": "object_pattern",
             "named": true
           },
@@ -5310,6 +5366,10 @@
         "types": [
           {
             "type": "dictionary_pattern",
+            "named": true
+          },
+          {
+            "type": "named_object_pattern",
             "named": true
           },
           {
@@ -5700,6 +5760,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -6038,6 +6102,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -6146,6 +6214,50 @@
     }
   },
   {
+    "type": "named_object_pattern",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fully_qualified_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          }
+        ]
+      },
+      "shape": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "object_pattern",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "named_placeholder_argument",
     "named": true,
     "fields": {
@@ -6159,6 +6271,50 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "named_shape_type",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fully_qualified_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "qualified_name",
+            "named": true
+          }
+        ]
+      },
+      "shape": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "object_shape_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_argument_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6252,10 +6408,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "block",
-          "named": true
-        },
         {
           "type": "class_declaration",
           "named": true
@@ -6660,6 +6812,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -6907,6 +7063,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -7173,7 +7333,7 @@
         "required": true,
         "types": [
           {
-            "type": "string_literal",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -7577,6 +7737,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -7926,6 +8090,21 @@
     }
   },
   {
+    "type": "sequence_construct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "construct_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "short_closure_body",
     "named": true,
     "fields": {
@@ -8232,6 +8411,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -8516,6 +8699,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -8787,6 +8974,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -9101,6 +9292,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -9761,6 +9956,10 @@
             "named": true
           },
           {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
             "type": "short_closure_expression",
             "named": true
           },
@@ -9961,6 +10160,10 @@
         },
         {
           "type": "literal_type",
+          "named": true
+        },
+        {
+          "type": "named_shape_type",
           "named": true
         },
         {
@@ -10197,6 +10400,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -10519,6 +10726,10 @@
           },
           {
             "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
             "named": true
           },
           {
@@ -11535,6 +11746,10 @@
   },
   {
     "type": "self",
+    "named": false
+  },
+  {
+    "type": "sequence",
     "named": false
   },
   {

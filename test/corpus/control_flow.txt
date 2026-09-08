@@ -156,7 +156,6 @@ try {
 }
 
 ;
-{}
 
 ---
 
@@ -263,5 +262,15 @@ try {
               name: (constant_name
                 (identifier)))
             arguments: (argument_list))))))
-  (empty_statement)
-  (block))
+  (empty_statement))
+
+==================
+Standalone blocks are rejected
+==================
+
+{}
+
+---
+
+(source_file
+  (ERROR))

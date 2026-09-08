@@ -15,7 +15,7 @@ $last = remove_last!($values,);
 assert!($ready, 'not ready',);
 exit!();
 exit!(1,);
-panic!('fatal');
+panic!('fatal: ' . describe($value));
 write!();
 write!('one', 2,);
 write_line!('line');
@@ -23,6 +23,7 @@ write_error!('error');
 write_error_line!('error line');
 debug!($value, $other);
 discard!($value);
+$sequence = sequence!($value = 1, $value + 2,);
 drop!($first, $last,);
 $file = file!();
 $directory = directory!();
@@ -123,9 +124,18 @@ $template = embed!('template.txt');
       code: (integer_literal)))
   (expression_statement
     (panic_construct
-      message: (string_literal
-        (single_quoted_string
-          (string_content)))))
+      message: (binary_expression
+        left: (string_literal
+          (single_quoted_string
+            (string_content)))
+        right: (function_call_expression
+          function: (constant_access_expression
+            name: (constant_name
+              (identifier)))
+          arguments: (argument_list
+            (argument
+              (positional_argument
+                value: (variable))))))))
   (expression_statement
     (write_construct))
   (expression_statement
@@ -163,6 +173,20 @@ $template = embed!('template.txt');
   (expression_statement
     (discard_construct
       value: (variable)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (sequence_construct
+        (construct_argument
+          value: (assignment_expression
+            left: (variable)
+            operator: (assignment_operator)
+            right: (integer_literal)))
+        (construct_argument
+          value: (binary_expression
+            left: (variable)
+            right: (integer_literal))))))
   (expression_statement
     (drop_construct
       variable: (variable)

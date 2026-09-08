@@ -81,6 +81,7 @@ const CONSTRUCT_NAMES = [
   "remove_last",
   "require",
   "require_once",
+  "sequence",
   "swap_remove",
   "write",
   "write_error",
@@ -213,7 +214,6 @@ export default grammar({
     _non_namespace_statement: ($) =>
       choice(
         $.empty_statement,
-        $.block,
         $.use_declaration,
         $.constant_declaration,
         $.type_alias_declaration,
@@ -1081,6 +1081,7 @@ export default grammar({
         $.vector_pattern,
         $.dictionary_pattern,
         $.object_pattern,
+        $.named_object_pattern,
       ),
 
     variable_pattern: ($) => $.variable,
@@ -1179,6 +1180,13 @@ export default grammar({
         ),
       ),
 
+    named_object_pattern: ($) =>
+      seq(
+        field("name", $._name),
+        optional($.type_argument_list),
+        field("shape", $.object_pattern),
+      ),
+
     object_pattern_entry: ($) =>
       choice(
         seq(
@@ -1251,6 +1259,7 @@ export default grammar({
         $.write_error_line_construct,
         $.debug_construct,
         $.discard_construct,
+        $.sequence_construct,
         $.drop_construct,
         $.file_construct,
         $.directory_construct,
@@ -1301,7 +1310,7 @@ export default grammar({
         optional(seq(field("code", $._expression), optional(","))),
       ),
 
-    panic_construct: ($) => literalStringConstruct($, "panic", "message"),
+    panic_construct: ($) => unaryConstruct($, "panic", "message"),
     write_construct: ($) => variadicConstruct($, "write"),
     write_line_construct: ($) => variadicConstruct($, "write_line"),
     write_error_construct: ($) => variadicConstruct($, "write_error"),
@@ -1309,6 +1318,11 @@ export default grammar({
     debug_construct: ($) => variadicConstruct($, "debug"),
     construct_argument: ($) => field("value", $._expression),
     discard_construct: ($) => unaryConstruct($, "discard", "value"),
+    sequence_construct: ($) =>
+      construct(
+        "sequence",
+        seq(commaSep1($.construct_argument), optional(",")),
+      ),
 
     drop_construct: ($) =>
       construct(
@@ -1784,6 +1798,7 @@ export default grammar({
         $.negative_literal_type,
         $.integer_range_type,
         $.string_length_type,
+        $.named_shape_type,
         $.named_type,
         $.self_type,
         $.parent_type,
@@ -1869,11 +1884,13 @@ export default grammar({
       ),
 
     named_type: ($) =>
-      seq(
-        field("name", $._name),
-        optional($.type_argument_list),
-        optional($.member_type),
-      ),
+      seq($._named_type_base, optional($.member_type)),
+
+    named_shape_type: ($) =>
+      seq($._named_type_base, field("shape", $.object_shape_type)),
+
+    _named_type_base: ($) =>
+      prec.right(seq(field("name", $._name), optional($.type_argument_list))),
 
     self_type: ($) => seq("self", optional($.member_type)),
     parent_type: (_) => "parent",

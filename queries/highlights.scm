@@ -175,6 +175,8 @@
 (static_type) @type.builtin
 
 (named_type name: (_) @type)
+(named_shape_type name: (_) @type)
+(named_object_pattern name: (_) @type)
 (member_type name: (identifier) @type)
 (type_parameter name: (identifier) @type.parameter)
 
@@ -267,6 +269,7 @@
 (write_error_line_construct "write_error_line" @function.macro)
 (debug_construct "debug" @function.macro)
 (discard_construct "discard" @function.macro)
+(sequence_construct "sequence" @function.macro)
 (drop_construct "drop" @function.macro)
 (file_construct "file" @function.macro)
 (directory_construct "directory" @function.macro)

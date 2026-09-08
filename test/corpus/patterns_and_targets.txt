@@ -231,17 +231,19 @@ using (
     body: (block)))
 
 ==================
-Object and intersection patterns
+Object, named object, and intersection patterns
 ==================
 
 $result = match ($value) {
   #{ name: $name @ string, age: $age @ int } => $name,
   #{ $value, nested: #{ code: $code @ int, ... }, ... } => $value,
-  Ok<string> & #{ value: '' } => 'empty',
-  Ok<string> & #{ $value } => $value,
+  Ok<string> #{ value: '' } => 'empty',
+  \Example\Ok<string> #{ $value } => $value,
   ($x, $y) & (int, int) => $x + $y,
   int & string => 'impossible',
   $both @ Foo & #{ $value } => $both,
+  $whole @ Item #{ value: $other @ int } => $whole,
+  !Item #{ value: int } => 'not item',
   #{ ..., } => null,
   $_ => null,
 };
@@ -294,13 +296,11 @@ $result = match ($value) {
             (object_shape_rest))
           (variable))
         (match_arm
-          (intersection_pattern
-            (type_pattern
-              (named_type
-                (identifier)
-                (type_argument_list
-                  (type_argument
-                    (primitive_type)))))
+          (named_object_pattern
+            (identifier)
+            (type_argument_list
+              (type_argument
+                (primitive_type)))
             (object_pattern
               (object_pattern_entry
                 (member_name
@@ -313,13 +313,13 @@ $result = match ($value) {
             (single_quoted_string
               (string_content))))
         (match_arm
-          (intersection_pattern
-            (type_pattern
-              (named_type
-                (identifier)
-                (type_argument_list
-                  (type_argument
-                    (primitive_type)))))
+          (named_object_pattern
+            (fully_qualified_name
+              (identifier)
+              (identifier))
+            (type_argument_list
+              (type_argument
+                (primitive_type)))
             (object_pattern
               (object_pattern_entry
                 (variable))))
@@ -358,6 +358,35 @@ $result = match ($value) {
                 (object_pattern_entry
                   (variable)))))
           (variable))
+        (match_arm
+          (as_pattern
+            (variable_pattern
+              (variable))
+            (named_object_pattern
+              (identifier)
+              (object_pattern
+                (object_pattern_entry
+                  (member_name
+                    (identifier))
+                  (as_pattern
+                    (variable_pattern
+                      (variable))
+                    (type_pattern
+                      (primitive_type)))))))
+          (variable))
+        (match_arm
+          (type_pattern
+            (negated_type
+              (named_shape_type
+                (identifier)
+                (object_shape_type
+                  (object_shape_entry
+                    (member_name
+                      (identifier))
+                    (primitive_type))))))
+          (string_literal
+            (single_quoted_string
+              (string_content))))
         (match_arm
           (object_pattern
             (object_shape_rest))

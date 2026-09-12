@@ -829,7 +829,6 @@ export default grammar({
         $.vector_fill_expression,
         $.dictionary_expression,
         $.closure_expression,
-        $.short_closure_expression,
         $.match_expression,
         $.object_creation_expression,
         $.break_expression,
@@ -985,28 +984,14 @@ export default grammar({
     closure_expression: ($) =>
       seq(
         repeat($.attribute_group),
-        "function",
-        optional($.type_parameter_list),
-        field("parameters", $.parameter_list),
-        optional($.closure_use_clause),
-        optional($.return_type),
-        field("body", $.block),
-      ),
-
-    closure_use_clause: ($) =>
-      seq("use", "(", optional(seq(commaSep1($.variable), optional(","))), ")"),
-
-    short_closure_expression: ($) =>
-      seq(
-        repeat($.attribute_group),
         "fn",
         optional($.type_parameter_list),
         field("parameters", $.parameter_list),
         optional($.return_type),
-        field("body", $.short_closure_body),
+        field("body", $.closure_body),
       ),
 
-    short_closure_body: ($) =>
+    closure_body: ($) =>
       choice(seq("=>", field("value", $._expression)), $.block),
 
     match_expression: ($) =>
@@ -1075,6 +1060,7 @@ export default grammar({
 
     _non_type_pattern_primary: ($) =>
       choice(
+        $.wildcard_pattern,
         $.variable_pattern,
         $.parenthesized_pattern,
         $.tuple_pattern,
@@ -1084,6 +1070,7 @@ export default grammar({
         $.named_object_pattern,
       ),
 
+    wildcard_pattern: (_) => prec(PREC.PATTERN_INTERSECTION + 1, "_"),
     variable_pattern: ($) => $.variable,
     type_pattern: ($) =>
       prec(PREC.PATTERN_UNION + 1, $._intersection_pattern_type),

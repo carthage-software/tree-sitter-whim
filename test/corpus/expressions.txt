@@ -423,7 +423,7 @@ $object = new Box::<int>(value: 1);
 $dynamic = new $class();
 $relative = new self();
 
-$closure = function<T>(T $value) use ($suffix,): string {
+$closure = fn<T>(T $value): string {
   return $value . $suffix;
 };
 $short = fn(int $value): int => $value * 2;
@@ -543,28 +543,27 @@ $block = fn(int $value): int {
             type: (named_type
               name: (identifier))
             name: (variable)))
-        (closure_use_clause
-          (variable))
         (return_type
           type: (primitive_type))
-        body: (block
-          (expression_statement
-            (return_expression
-              value: (binary_expression
-                left: (variable)
-                right: (variable))))))))
+        body: (closure_body
+          (block
+            (expression_statement
+              (return_expression
+                value: (binary_expression
+                  left: (variable)
+                  right: (variable)))))))))
   (expression_statement
     (assignment_expression
       left: (variable)
       operator: (assignment_operator)
-      right: (short_closure_expression
+      right: (closure_expression
         parameters: (parameter_list
           (parameter
             type: (primitive_type)
             name: (variable)))
         (return_type
           type: (primitive_type))
-        body: (short_closure_body
+        body: (closure_body
           value: (binary_expression
             left: (variable)
             right: (integer_literal))))))
@@ -572,17 +571,43 @@ $block = fn(int $value): int {
     (assignment_expression
       left: (variable)
       operator: (assignment_operator)
-      right: (short_closure_expression
+      right: (closure_expression
         parameters: (parameter_list
           (parameter
             type: (primitive_type)
             name: (variable)))
         (return_type
           type: (primitive_type))
-        body: (short_closure_body
+        body: (closure_body
           (block
             (expression_statement
               (return_expression
                 value: (binary_expression
                   left: (variable)
                   right: (integer_literal))))))))))
+
+==================
+Removed closure forms are rejected
+==================
+
+$long = function(): void {};
+$captured = fn() use ($value): void {};
+
+---
+
+(source_file
+  (ERROR
+    (variable)
+    (assignment_operator)
+    (ERROR)
+    (ERROR)
+    (variable)
+    (ERROR
+      (parameter_list)
+      (function_call_expression
+        function: (constant_access_expression
+          name: (constant_name))
+        arguments: (argument_list
+          (argument
+            (positional_argument
+              value: (variable))))))))

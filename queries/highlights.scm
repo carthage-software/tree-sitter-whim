@@ -164,6 +164,8 @@
   (wildcard_type)
 ] @type.builtin
 
+(wildcard_pattern) @keyword
+
 (array_type "array" @type.builtin)
 (vector_type "vec" @type.builtin)
 (vector_shape_type "vec" @type.builtin)

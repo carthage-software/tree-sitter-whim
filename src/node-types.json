@@ -180,10 +180,6 @@
         "named": true
       },
       {
-        "type": "short_closure_expression",
-        "named": true
-      },
-      {
         "type": "static_method_call_expression",
         "named": true
       },
@@ -303,6 +299,10 @@
       },
       {
         "type": "vector_pattern",
+        "named": true
+      },
+      {
+        "type": "wildcard_pattern",
         "named": true
       }
     ]
@@ -664,10 +664,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -836,6 +832,10 @@
           },
           {
             "type": "vector_pattern",
+            "named": true
+          },
+          {
+            "type": "wildcard_pattern",
             "named": true
           }
         ]
@@ -1114,10 +1114,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -1428,10 +1424,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -1752,10 +1744,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -2158,10 +2146,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -2441,6 +2425,32 @@
     }
   },
   {
+    "type": "closure_body",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "closure_expression",
     "named": true,
     "fields": {
@@ -2449,7 +2459,7 @@
         "required": true,
         "types": [
           {
-            "type": "block",
+            "type": "closure_body",
             "named": true
           }
         ]
@@ -2474,30 +2484,11 @@
           "named": true
         },
         {
-          "type": "closure_use_clause",
-          "named": true
-        },
-        {
           "type": "return_type",
           "named": true
         },
         {
           "type": "type_parameter_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "closure_use_clause",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "variable",
           "named": true
         }
       ]
@@ -2677,10 +2668,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -2937,10 +2924,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -4307,10 +4290,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -4661,10 +4640,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -4995,10 +4970,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -5357,6 +5328,10 @@
           {
             "type": "vector_pattern",
             "named": true
+          },
+          {
+            "type": "wildcard_pattern",
+            "named": true
           }
         ]
       },
@@ -5394,6 +5369,10 @@
           },
           {
             "type": "vector_pattern",
+            "named": true
+          },
+          {
+            "type": "wildcard_pattern",
             "named": true
           }
         ]
@@ -5764,10 +5743,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -6103,10 +6078,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -6816,10 +6787,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -7067,10 +7034,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -7741,10 +7704,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -8105,76 +8064,6 @@
     }
   },
   {
-    "type": "short_closure_body",
-    "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "short_closure_expression",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "short_closure_body",
-            "named": true
-          }
-        ]
-      },
-      "parameters": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "attribute_group",
-          "named": true
-        },
-        {
-          "type": "return_type",
-          "named": true
-        },
-        {
-          "type": "type_parameter_list",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "signed_integer_literal",
     "named": true,
     "fields": {},
@@ -8412,10 +8301,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -8703,10 +8588,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -8978,10 +8859,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -9296,10 +9173,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -9960,10 +9833,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -10407,10 +10276,6 @@
             "named": true
           },
           {
-            "type": "short_closure_expression",
-            "named": true
-          },
-          {
             "type": "static_method_call_expression",
             "named": true
           },
@@ -10730,10 +10595,6 @@
           },
           {
             "type": "sequence_construct",
-            "named": true
-          },
-          {
-            "type": "short_closure_expression",
             "named": true
           },
           {
@@ -11160,6 +11021,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "wildcard_pattern",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "wildcard_type",

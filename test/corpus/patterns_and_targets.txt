@@ -15,7 +15,7 @@ $result = match ($value) {
     ...$remaining,
   ] @ dict['name' => string, ...<string, float|int>] => $name,
   dict[...,] => null,
-  $_ => null,
+  _ => null,
 };
 
 ---
@@ -134,9 +134,82 @@ $result = match ($value) {
             (trailing_pattern))
           value: (null_literal))
         (match_arm
-          pattern: (variable_pattern
-            (variable))
+          pattern: (wildcard_pattern)
           value: (null_literal))))))
+
+==================
+Wildcard patterns
+==================
+
+$result = match ($value) {
+  (_, $bound) => $bound,
+  vec[_, ..._] => 1,
+  dict['value' => _, ...] => 2,
+  #{ value: _, ... } => 3,
+  $number @ (_ & int) => $number,
+  null | (_) => 4,
+  _ => 5,
+};
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (match_expression
+        value: (variable)
+        (match_arm
+          pattern: (tuple_pattern
+            (wildcard_pattern)
+            (variable_pattern
+              (variable)))
+          value: (variable))
+        (match_arm
+          pattern: (vector_pattern
+            (wildcard_pattern)
+            (trailing_pattern
+              pattern: (wildcard_pattern)))
+          value: (integer_literal))
+        (match_arm
+          pattern: (dictionary_pattern
+            (dictionary_pattern_entry
+              key: (string_literal
+                (single_quoted_string
+                  (string_content)))
+              pattern: (wildcard_pattern))
+            (trailing_pattern))
+          value: (integer_literal))
+        (match_arm
+          pattern: (object_pattern
+            (object_pattern_entry
+              property: (member_name
+                (identifier))
+              pattern: (wildcard_pattern))
+            (object_shape_rest))
+          value: (integer_literal))
+        (match_arm
+          pattern: (as_pattern
+            target: (variable_pattern
+              (variable))
+            pattern: (parenthesized_pattern
+              (intersection_pattern
+                left: (wildcard_pattern)
+                right: (type_pattern
+                  (primitive_type)))))
+          value: (variable))
+        (match_arm
+          pattern: (union_pattern
+            left: (type_pattern
+              (literal_type
+                (null_literal)))
+            right: (parenthesized_pattern
+              (wildcard_pattern)))
+          value: (integer_literal))
+        (match_arm
+          pattern: (wildcard_pattern)
+          value: (integer_literal))))))
 
 ==================
 Assignment and binding targets

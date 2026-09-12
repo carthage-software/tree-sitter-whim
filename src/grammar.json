@@ -3287,10 +3287,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "short_closure_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "match_expression"
         },
         {
@@ -4019,141 +4015,6 @@
         },
         {
           "type": "STRING",
-          "value": "function"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "type_parameter_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "parameters",
-          "content": {
-            "type": "SYMBOL",
-            "name": "parameter_list"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "closure_use_clause"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "return_type"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "block"
-          }
-        }
-      ]
-    },
-    "closure_use_clause": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "use"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "variable"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ","
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "variable"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": ","
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
-    },
-    "short_closure_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "attribute_group"
-          }
-        },
-        {
-          "type": "STRING",
           "value": "fn"
         },
         {
@@ -4193,12 +4054,12 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "short_closure_body"
+            "name": "closure_body"
           }
         }
       ]
     },
-    "short_closure_body": {
+    "closure_body": {
       "type": "CHOICE",
       "members": [
         {
@@ -4506,6 +4367,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "wildcard_pattern"
+        },
+        {
+          "type": "SYMBOL",
           "name": "variable_pattern"
         },
         {
@@ -4533,6 +4398,14 @@
           "name": "named_object_pattern"
         }
       ]
+    },
+    "wildcard_pattern": {
+      "type": "PREC",
+      "value": 23,
+      "content": {
+        "type": "STRING",
+        "value": "_"
+      }
     },
     "variable_pattern": {
       "type": "SYMBOL",

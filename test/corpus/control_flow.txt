@@ -155,8 +155,6 @@ try {
   cleanup();
 }
 
-;
-
 ---
 
 (source_file
@@ -261,8 +259,46 @@ try {
             function: (constant_access_expression
               name: (constant_name
                 (identifier)))
-            arguments: (argument_list))))))
-  (empty_statement))
+            arguments: (argument_list)))))))
+
+==================
+Empty statements are rejected
+==================
+
+;
+
+---
+
+(source_file
+  (ERROR))
+
+==================
+Declarations are rejected in executable blocks
+==================
+
+function outer(): void {
+  function inner(): void {}
+}
+
+---
+
+(source_file
+  (function_declaration
+    name: (function_name
+      (identifier))
+    parameters: (parameter_list)
+    (return_type
+      type: (primitive_type))
+    body: (block
+      (MISSING "}")))
+  (function_declaration
+    name: (function_name
+      (identifier))
+    parameters: (parameter_list)
+    (return_type
+      type: (primitive_type))
+    body: (block))
+  (ERROR))
 
 ==================
 Standalone blocks are rejected

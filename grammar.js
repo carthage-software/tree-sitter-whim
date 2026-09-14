@@ -152,7 +152,13 @@ export default grammar({
     $.documentation_comment,
   ],
 
-  supertypes: ($) => [$._statement, $._expression, $._type, $._pattern],
+  supertypes: ($) => [
+    $._top_level_statement,
+    $._statement,
+    $._expression,
+    $._type,
+    $._pattern,
+  ],
 
   inline: ($) => [
     $._class_reference,
@@ -160,6 +166,7 @@ export default grammar({
     $._literal,
     $._local_identifier,
     $._name,
+    $._non_namespace_top_level_statement,
     $._non_type_pattern_primary,
     $._pattern_primary,
     $._soft_function_name,
@@ -195,10 +202,12 @@ export default grammar({
     [$.vector_type],
     [$.vector_type, $.vector_shape_type],
     [$.dictionary_type, $.dictionary_shape_type],
+    [$.namespace_implicit_body],
   ],
 
   rules: {
-    source_file: ($) => seq(optional($.shebang), repeat($._statement)),
+    source_file: ($) =>
+      seq(optional($.shebang), repeat($._top_level_statement)),
 
     shebang: (_) => token(seq("#!/", /[^\r\n]*/)),
 
@@ -208,12 +217,16 @@ export default grammar({
     block_comment: (_) =>
       choice(token(prec(2, "/**/")), token(/\/\*(?:[^*]|\*+[^*/])*\*+\//)),
 
-    _statement: ($) =>
-      choice($.namespace_definition, $._non_namespace_statement),
-
-    _non_namespace_statement: ($) =>
+    _top_level_statement: ($) =>
       choice(
-        $.empty_statement,
+        $.file_attribute_list,
+        $.namespace_definition,
+        $._non_namespace_top_level_statement,
+      ),
+
+    _non_namespace_top_level_statement: ($) =>
+      choice(
+        $.file_attribute_list,
         $.use_declaration,
         $.constant_declaration,
         $.type_alias_declaration,
@@ -222,6 +235,11 @@ export default grammar({
         $.class_declaration,
         $.interface_declaration,
         $.enum_declaration,
+        $._statement,
+      ),
+
+    _statement: ($) =>
+      choice(
         $.if_statement,
         $.while_statement,
         $.do_while_statement,
@@ -233,19 +251,28 @@ export default grammar({
         $.expression_statement,
       ),
 
-    empty_statement: (_) => ";",
     block: ($) => seq("{", repeat($._statement), "}"),
 
     namespace_definition: ($) =>
       seq(
         "namespace",
         field("name", $.namespace_name),
-        field("body", choice($.namespace_body, $.namespace_implicit_body)),
+        field(
+          "body",
+          choice(
+            $.namespace_brace_delimited_body,
+            $.namespace_implicit_body,
+          ),
+        ),
       ),
 
-    namespace_body: ($) => seq("{", repeat($._statement), "}"),
+    namespace_brace_delimited_body: ($) =>
+      seq("{", repeat($._top_level_statement), "}"),
     namespace_implicit_body: ($) =>
-      prec.right(seq(";", repeat($._non_namespace_statement))),
+      seq(
+        ";",
+        repeat(prec.dynamic(1, $._non_namespace_top_level_statement)),
+      ),
 
     use_declaration: ($) =>
       seq(
@@ -436,6 +463,8 @@ export default grammar({
 
     attribute_group: ($) =>
       seq("#[", optional(seq(commaSep1($.attribute), optional(","))), "]"),
+    file_attribute_list: ($) =>
+      seq("#![", optional(seq(commaSep1($.attribute), optional(","))), "]"),
     attribute: ($) =>
       seq(
         field("name", $._identifier_name),

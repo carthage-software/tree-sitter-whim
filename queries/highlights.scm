@@ -124,6 +124,7 @@
   ";"
   ":"
   "#["
+  "#!["
 ] @punctuation.delimiter
 
 ; Literals and strings

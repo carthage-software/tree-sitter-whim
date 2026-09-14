@@ -381,7 +381,7 @@ namespace Root\Other {}
       (fully_qualified_namespace_name
         (identifier)
         (identifier)))
-    body: (namespace_body
+    body: (namespace_brace_delimited_body
       (constant_declaration
         name: (constant_name
           (identifier))
@@ -391,4 +391,97 @@ namespace Root\Other {}
       (qualified_namespace_name
         (identifier)
         (identifier)))
-    body: (namespace_body)))
+    body: (namespace_brace_delimited_body)))
+
+==================
+File attributes and top-level statement boundaries
+==================
+
+#!/usr/bin/env whim
+#![]
+#![Root, Meta\Tag('file', enabled: true),]
+
+namespace App {
+  #![Inside]
+  use App\Thing;
+  run();
+  namespace Nested {}
+}
+
+#![Outside]
+
+namespace Other;
+#![Implicit]
+const VALUE = 1;
+namespace();
+
+namespace Last {}
+
+---
+
+(source_file
+  (shebang)
+  (file_attribute_list)
+  (file_attribute_list
+    (attribute
+      name: (identifier))
+    (attribute
+      name: (qualified_name
+        (identifier)
+        (identifier))
+      arguments: (argument_list
+        (argument
+          (positional_argument
+            value: (string_literal
+              (single_quoted_string
+                (string_content)))))
+        (argument
+          (named_argument
+            name: (member_name
+              (identifier))
+            value: (boolean_literal))))))
+  (namespace_definition
+    name: (namespace_name
+      (identifier))
+    body: (namespace_brace_delimited_body
+      (file_attribute_list
+        (attribute
+          name: (identifier)))
+      (use_declaration
+        items: (use_item
+          name: (qualified_name
+            (identifier)
+            (identifier))))
+      (expression_statement
+        (function_call_expression
+          function: (constant_access_expression
+            name: (constant_name
+              (identifier)))
+          arguments: (argument_list)))
+      (namespace_definition
+        name: (namespace_name
+          (identifier))
+        body: (namespace_brace_delimited_body))))
+  (file_attribute_list
+    (attribute
+      name: (identifier)))
+  (namespace_definition
+    name: (namespace_name
+      (identifier))
+    body: (namespace_implicit_body
+      (file_attribute_list
+        (attribute
+          name: (identifier)))
+      (constant_declaration
+        name: (constant_name
+          (identifier))
+        value: (integer_literal))
+      (expression_statement
+        (function_call_expression
+          function: (constant_access_expression
+            name: (constant_name))
+          arguments: (argument_list)))))
+  (namespace_definition
+    name: (namespace_name
+      (identifier))
+    body: (namespace_brace_delimited_body)))

@@ -21,7 +21,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_top_level_statement"
           }
         }
       ]
@@ -92,25 +92,29 @@
         }
       ]
     },
-    "_statement": {
+    "_top_level_statement": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "file_attribute_list"
+        },
         {
           "type": "SYMBOL",
           "name": "namespace_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "_non_namespace_statement"
+          "name": "_non_namespace_top_level_statement"
         }
       ]
     },
-    "_non_namespace_statement": {
+    "_non_namespace_top_level_statement": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "empty_statement"
+          "name": "file_attribute_list"
         },
         {
           "type": "SYMBOL",
@@ -144,6 +148,15 @@
           "type": "SYMBOL",
           "name": "enum_declaration"
         },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
+    "_statement": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "SYMBOL",
           "name": "if_statement"
@@ -181,10 +194,6 @@
           "name": "expression_statement"
         }
       ]
-    },
-    "empty_statement": {
-      "type": "STRING",
-      "value": ";"
     },
     "block": {
       "type": "SEQ",
@@ -229,7 +238,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "namespace_body"
+                "name": "namespace_brace_delimited_body"
               },
               {
                 "type": "SYMBOL",
@@ -240,7 +249,7 @@
         }
       ]
     },
-    "namespace_body": {
+    "namespace_brace_delimited_body": {
       "type": "SEQ",
       "members": [
         {
@@ -251,7 +260,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_top_level_statement"
           }
         },
         {
@@ -261,24 +270,24 @@
       ]
     },
     "namespace_implicit_body": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": ";"
-          },
-          {
-            "type": "REPEAT",
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PREC_DYNAMIC",
+            "value": 1,
             "content": {
               "type": "SYMBOL",
-              "name": "_non_namespace_statement"
+              "name": "_non_namespace_top_level_statement"
             }
           }
-        ]
-      }
+        }
+      ]
     },
     "use_declaration": {
       "type": "SEQ",
@@ -1437,6 +1446,69 @@
         {
           "type": "STRING",
           "value": "#["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "attribute"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "attribute"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "file_attribute_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#!["
         },
         {
           "type": "CHOICE",
@@ -11704,6 +11776,9 @@
     [
       "dictionary_type",
       "dictionary_shape_type"
+    ],
+    [
+      "namespace_implicit_body"
     ]
   ],
   "precedences": [],
@@ -11747,12 +11822,14 @@
     "_literal",
     "_local_identifier",
     "_name",
+    "_non_namespace_top_level_statement",
     "_non_type_pattern_primary",
     "_pattern_primary",
     "_soft_function_name",
     "_type_primary"
   ],
   "supertypes": [
+    "_top_level_statement",
     "_statement",
     "_expression",
     "_type",

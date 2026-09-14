@@ -312,23 +312,7 @@
     "named": true,
     "subtypes": [
       {
-        "type": "class_declaration",
-        "named": true
-      },
-      {
-        "type": "constant_declaration",
-        "named": true
-      },
-      {
         "type": "do_while_statement",
-        "named": true
-      },
-      {
-        "type": "empty_statement",
-        "named": true
-      },
-      {
-        "type": "enum_declaration",
         "named": true
       },
       {
@@ -348,11 +332,49 @@
         "named": true
       },
       {
-        "type": "function_declaration",
+        "type": "if_statement",
         "named": true
       },
       {
-        "type": "if_statement",
+        "type": "try_statement",
+        "named": true
+      },
+      {
+        "type": "using_statement",
+        "named": true
+      },
+      {
+        "type": "while_statement",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_top_level_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "_statement",
+        "named": true
+      },
+      {
+        "type": "class_declaration",
+        "named": true
+      },
+      {
+        "type": "constant_declaration",
+        "named": true
+      },
+      {
+        "type": "enum_declaration",
+        "named": true
+      },
+      {
+        "type": "file_attribute_list",
+        "named": true
+      },
+      {
+        "type": "function_declaration",
         "named": true
       },
       {
@@ -368,23 +390,11 @@
         "named": true
       },
       {
-        "type": "try_statement",
-        "named": true
-      },
-      {
         "type": "type_alias_declaration",
         "named": true
       },
       {
         "type": "use_declaration",
-        "named": true
-      },
-      {
-        "type": "using_statement",
-        "named": true
-      },
-      {
-        "type": "while_statement",
         "named": true
       }
     ]
@@ -3739,11 +3749,6 @@
     }
   },
   {
-    "type": "empty_statement",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "enum_backing_type",
     "named": true,
     "fields": {
@@ -3913,6 +3918,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "file_attribute_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -6327,7 +6347,7 @@
     }
   },
   {
-    "type": "namespace_body",
+    "type": "namespace_brace_delimited_body",
     "named": true,
     "fields": {},
     "children": {
@@ -6335,7 +6355,7 @@
       "required": false,
       "types": [
         {
-          "type": "_statement",
+          "type": "_top_level_statement",
           "named": true
         }
       ]
@@ -6350,7 +6370,7 @@
         "required": true,
         "types": [
           {
-            "type": "namespace_body",
+            "type": "namespace_brace_delimited_body",
             "named": true
           },
           {
@@ -6380,6 +6400,10 @@
       "required": false,
       "types": [
         {
+          "type": "_statement",
+          "named": true
+        },
+        {
           "type": "class_declaration",
           "named": true
         },
@@ -6388,39 +6412,15 @@
           "named": true
         },
         {
-          "type": "do_while_statement",
-          "named": true
-        },
-        {
-          "type": "empty_statement",
-          "named": true
-        },
-        {
           "type": "enum_declaration",
           "named": true
         },
         {
-          "type": "expression_statement",
-          "named": true
-        },
-        {
-          "type": "final_local_declaration",
-          "named": true
-        },
-        {
-          "type": "for_statement",
-          "named": true
-        },
-        {
-          "type": "foreach_statement",
+          "type": "file_attribute_list",
           "named": true
         },
         {
           "type": "function_declaration",
-          "named": true
-        },
-        {
-          "type": "if_statement",
           "named": true
         },
         {
@@ -6432,23 +6432,11 @@
           "named": true
         },
         {
-          "type": "try_statement",
-          "named": true
-        },
-        {
           "type": "type_alias_declaration",
           "named": true
         },
         {
           "type": "use_declaration",
-          "named": true
-        },
-        {
-          "type": "using_statement",
-          "named": true
-        },
-        {
-          "type": "while_statement",
           "named": true
         }
       ]
@@ -8107,7 +8095,7 @@
       "required": false,
       "types": [
         {
-          "type": "_statement",
+          "type": "_top_level_statement",
           "named": true
         },
         {
@@ -11102,6 +11090,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#![",
     "named": false
   },
   {

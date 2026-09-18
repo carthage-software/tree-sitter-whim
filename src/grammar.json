@@ -5366,6 +5366,38 @@
         {
           "type": "SYMBOL",
           "name": "embed_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cpu_architecture_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "operating_system_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "operating_system_family_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shared_library_prefix_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shared_library_suffix_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shared_library_extension_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "executable_suffix_construct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "executable_extension_construct"
         }
       ]
     },
@@ -6812,6 +6844,206 @@
                 ]
               }
             ]
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "cpu_architecture_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "cpu_architecture"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "operating_system_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "operating_system"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "operating_system_family_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "operating_system_family"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "shared_library_prefix_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "shared_library_prefix"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "shared_library_suffix_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "shared_library_suffix"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "shared_library_extension_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "shared_library_extension"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "executable_suffix_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "executable_suffix"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
+    "executable_extension_construct": {
+      "type": "PREC",
+      "value": 17,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "executable_extension"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          },
+          {
+            "type": "STRING",
+            "value": "("
           },
           {
             "type": "STRING",
@@ -10482,6 +10714,10 @@
         },
         {
           "type": "STRING",
+          "value": "cpu_architecture"
+        },
+        {
+          "type": "STRING",
           "value": "debug"
         },
         {
@@ -10502,6 +10738,14 @@
         },
         {
           "type": "STRING",
+          "value": "executable_extension"
+        },
+        {
+          "type": "STRING",
+          "value": "executable_suffix"
+        },
+        {
+          "type": "STRING",
           "value": "exit"
         },
         {
@@ -10511,6 +10755,14 @@
         {
           "type": "STRING",
           "value": "length"
+        },
+        {
+          "type": "STRING",
+          "value": "operating_system"
+        },
+        {
+          "type": "STRING",
+          "value": "operating_system_family"
         },
         {
           "type": "STRING",
@@ -10539,6 +10791,18 @@
         {
           "type": "STRING",
           "value": "sequence"
+        },
+        {
+          "type": "STRING",
+          "value": "shared_library_extension"
+        },
+        {
+          "type": "STRING",
+          "value": "shared_library_prefix"
+        },
+        {
+          "type": "STRING",
+          "value": "shared_library_suffix"
         },
         {
           "type": "STRING",
@@ -10614,6 +10878,15 @@
           "type": "ALIAS",
           "content": {
             "type": "STRING",
+            "value": "cpu_architecture"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
             "value": "debug"
           },
           "named": true,
@@ -10659,6 +10932,24 @@
           "type": "ALIAS",
           "content": {
             "type": "STRING",
+            "value": "executable_extension"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "executable_suffix"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
             "value": "exit"
           },
           "named": true,
@@ -10678,6 +10969,24 @@
           "content": {
             "type": "STRING",
             "value": "length"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "operating_system"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "operating_system_family"
           },
           "named": true,
           "value": "identifier"
@@ -10741,6 +11050,33 @@
           "content": {
             "type": "STRING",
             "value": "sequence"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "shared_library_extension"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "shared_library_prefix"
+          },
+          "named": true,
+          "value": "identifier"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "shared_library_suffix"
           },
           "named": true,
           "value": "identifier"

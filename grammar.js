@@ -67,14 +67,19 @@ const CONSTRUCT_NAMES = [
   "clone",
   "contains",
   "contains_key",
+  "cpu_architecture",
   "debug",
   "directory",
   "discard",
   "drop",
   "embed",
+  "executable_extension",
+  "executable_suffix",
   "exit",
   "file",
   "length",
+  "operating_system",
+  "operating_system_family",
   "panic",
   "remove",
   "remove_first",
@@ -82,6 +87,9 @@ const CONSTRUCT_NAMES = [
   "require",
   "require_once",
   "sequence",
+  "shared_library_extension",
+  "shared_library_prefix",
+  "shared_library_suffix",
   "swap_remove",
   "write",
   "write_error",
@@ -1280,6 +1288,14 @@ export default grammar({
         $.file_construct,
         $.directory_construct,
         $.embed_construct,
+        $.cpu_architecture_construct,
+        $.operating_system_construct,
+        $.operating_system_family_construct,
+        $.shared_library_prefix_construct,
+        $.shared_library_suffix_construct,
+        $.shared_library_extension_construct,
+        $.executable_suffix_construct,
+        $.executable_extension_construct,
       ),
 
     require_construct: ($) => unaryConstruct($, "require", "value"),
@@ -1349,6 +1365,18 @@ export default grammar({
     file_construct: (_) => construct("file"),
     directory_construct: (_) => construct("directory"),
     embed_construct: ($) => literalStringConstruct($, "embed", "path"),
+    cpu_architecture_construct: (_) => construct("cpu_architecture"),
+    operating_system_construct: (_) => construct("operating_system"),
+    operating_system_family_construct: (_) =>
+      construct("operating_system_family"),
+    shared_library_prefix_construct: (_) =>
+      construct("shared_library_prefix"),
+    shared_library_suffix_construct: (_) =>
+      construct("shared_library_suffix"),
+    shared_library_extension_construct: (_) =>
+      construct("shared_library_extension"),
+    executable_suffix_construct: (_) => construct("executable_suffix"),
+    executable_extension_construct: (_) => construct("executable_extension"),
 
     unary_expression: ($) =>
       seq(

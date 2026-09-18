@@ -209,3 +209,83 @@ $template = embed!('template.txt');
         path: (string_literal
           (single_quoted_string
             (string_content)))))))
+
+==================
+Platform constructs
+==================
+
+debug!(vec[
+  cpu_architecture!(),
+  operating_system!(),
+  operating_system_family!(),
+  shared_library_prefix!(),
+  shared_library_suffix!(),
+  shared_library_extension!(),
+  executable_suffix!(),
+  executable_extension!(),
+]);
+
+const CPU_ARCHITECTURE = cpu_architecture!();
+const OPERATING_SYSTEM = operating_system!();
+const OPERATING_SYSTEM_FAMILY = operating_system_family!();
+const SHARED_LIBRARY_PREFIX = shared_library_prefix!();
+const SHARED_LIBRARY_SUFFIX = shared_library_suffix!();
+const SHARED_LIBRARY_EXTENSION = shared_library_extension!();
+const EXECUTABLE_SUFFIX = executable_suffix!();
+const EXECUTABLE_EXTENSION = executable_extension!();
+
+---
+
+(source_file
+  (expression_statement
+    (debug_construct
+      (construct_argument
+        value: (vector_expression
+          (vector_element
+            value: (cpu_architecture_construct))
+          (vector_element
+            value: (operating_system_construct))
+          (vector_element
+            value: (operating_system_family_construct))
+          (vector_element
+            value: (shared_library_prefix_construct))
+          (vector_element
+            value: (shared_library_suffix_construct))
+          (vector_element
+            value: (shared_library_extension_construct))
+          (vector_element
+            value: (executable_suffix_construct))
+          (vector_element
+            value: (executable_extension_construct))))))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (cpu_architecture_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (operating_system_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (operating_system_family_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (shared_library_prefix_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (shared_library_suffix_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (shared_library_extension_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (executable_suffix_construct))
+  (constant_declaration
+    name: (constant_name
+      (identifier))
+    value: (executable_extension_construct)))

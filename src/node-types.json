@@ -6303,6 +6303,10 @@
         {
           "type": "type_parameter_list",
           "named": true
+        },
+        {
+          "type": "where_clause",
+          "named": true
         }
       ]
     }
@@ -11761,6 +11765,47 @@
     }
   },
   {
+    "type": "where_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "where_constraint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "where_constraint",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      },
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "while_statement",
     "named": true,
     "fields": {
@@ -12476,6 +12521,10 @@
   },
   {
     "type": "void",
+    "named": false
+  },
+  {
+    "type": "where",
     "named": false
   },
   {

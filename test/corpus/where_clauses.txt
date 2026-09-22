@@ -1,0 +1,262 @@
+==================
+Method where clauses
+==================
+
+final class Vector<T> {
+  public function sum(): int where T: int {
+    return 0;
+  }
+
+  public function sumFloats(): float where T: int|float {
+    return 0.0;
+  }
+
+  public function visit($value) where T: A, T: B, {}
+
+  public static function convert<U>(T $value): U where T: U {
+    return $value;
+  }
+}
+
+interface Source<T> {
+  public function read(): T where T: Named&Stored;
+
+  public function map<U>(fn(T): U $map) where U: Box<T> #{ value: T, ... };
+}
+
+enum Example {
+  case A;
+  public function get<T>(): T where T: (int, string) {
+    return (1, 'a');
+  }
+}
+
+---
+
+(source_file
+  (class_declaration
+    modifier: (class_modifier)
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (class_body
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (primitive_type)))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (integer_literal)))))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (union_type
+              left: (primitive_type)
+              right: (primitive_type))))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (float_literal)))))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list
+          (parameter
+            name: (variable)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_type
+              name: (identifier)))
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_type
+              name: (identifier))))
+        body: (block))
+      (method_declaration
+        modifier: (member_modifier)
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_type
+              name: (identifier))))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (variable)))))))
+  (interface_declaration
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (class_body
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        parameters: (parameter_list)
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (intersection_type
+              left: (named_type
+                name: (identifier))
+              right: (named_type
+                name: (identifier))))))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (function_type
+              (function_type_signature
+                (function_type_parameter
+                  type: (named_type
+                    name: (identifier)))
+                return_type: (named_type
+                  name: (identifier))))
+            name: (variable)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_shape_type
+              name: (identifier)
+              (type_argument_list
+                (type_argument
+                  type: (named_type
+                    name: (identifier))))
+              shape: (object_shape_type
+                (object_shape_entry
+                  property: (member_name
+                    (identifier))
+                  type: (named_type
+                    name: (identifier)))
+                (object_shape_rest))))))))
+  (enum_declaration
+    name: (identifier)
+    body: (class_body
+      (enum_case_declaration
+        name: (member_name
+          (identifier)))
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name
+          (identifier))
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list)
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (tuple_type
+              (primitive_type)
+              (primitive_type))))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (tuple_expression
+                (integer_literal)
+                (string_literal
+                  (single_quoted_string
+                    (string_content)))))))))))
+
+==================
+Where remains a contextual name
+==================
+
+const where = 1;
+function where() {}
+where();
+$value = where;
+
+class Query<T> {
+  public function where(): void where T: int {}
+}
+
+$query->where();
+
+---
+
+(source_file
+  (constant_declaration
+    name: (constant_name)
+    value: (integer_literal))
+  (function_declaration
+    name: (function_name)
+    parameters: (parameter_list)
+    body: (block))
+  (expression_statement
+    (function_call_expression
+      function: (constant_access_expression
+        name: (constant_name))
+      arguments: (argument_list)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (constant_access_expression
+        name: (constant_name))))
+  (class_declaration
+    name: (identifier)
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    body: (class_body
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name)
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (primitive_type)))
+        body: (block))))
+  (expression_statement
+    (method_call_expression
+      object: (variable)
+      method: (member_name)
+      arguments: (argument_list))))

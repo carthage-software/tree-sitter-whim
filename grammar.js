@@ -130,6 +130,7 @@ const CONTEXTUAL_KEYWORDS = [
   "use",
   "vec",
   "void",
+  "where",
 ];
 
 const KEYWORDS = [...FULL_KEYWORDS, ...SOFT_KEYWORDS, ...CONTEXTUAL_KEYWORDS];
@@ -432,6 +433,7 @@ export default grammar({
         optional($.type_parameter_list),
         field("parameters", $.parameter_list),
         optional($.return_type),
+        optional($.where_clause),
         field("body", choice($.block, ";")),
       ),
 
@@ -514,6 +516,16 @@ export default grammar({
     parameter_default: ($) => seq("=", field("value", $._expression)),
 
     return_type: ($) => seq(":", field("type", $._type)),
+
+    where_clause: ($) =>
+      seq("where", commaSep1($.where_constraint), optional(",")),
+
+    where_constraint: ($) =>
+      seq(
+        field("parameter", $._local_identifier),
+        ":",
+        field("bound", $._type),
+      ),
 
     if_statement: ($) =>
       prec.right(

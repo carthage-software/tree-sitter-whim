@@ -64,19 +64,19 @@ static bool is_reserved_identifier(const char *text, size_t length) {
          WORD("return") || WORD("self") || WORD("static") || WORD("string") ||
          WORD("throw") || WORD("true") || WORD("try") || WORD("type") ||
          WORD("use") || WORD("using") || WORD("vec") || WORD("void") ||
-         WORD("while") || WORD("assert") || WORD("clone") || WORD("contains") ||
-         WORD("contains_key") || WORD("cpu_architecture") || WORD("debug") ||
-         WORD("directory") || WORD("discard") || WORD("drop") ||
-         WORD("embed") || WORD("executable_extension") ||
-         WORD("executable_suffix") || WORD("exit") || WORD("file") ||
-         WORD("length") || WORD("operating_system") ||
-         WORD("operating_system_family") || WORD("panic") ||
-         WORD("remove") || WORD("remove_first") || WORD("remove_last") ||
-         WORD("require") || WORD("require_once") || WORD("sequence") ||
-         WORD("shared_library_extension") || WORD("shared_library_prefix") ||
-         WORD("shared_library_suffix") || WORD("swap_remove") ||
-         WORD("write") || WORD("write_error") || WORD("write_error_line") ||
-         WORD("write_line");
+         WORD("where") || WORD("while") || WORD("assert") || WORD("clone") ||
+         WORD("contains") || WORD("contains_key") ||
+         WORD("cpu_architecture") || WORD("debug") || WORD("directory") ||
+         WORD("discard") || WORD("drop") || WORD("embed") ||
+         WORD("executable_extension") || WORD("executable_suffix") ||
+         WORD("exit") || WORD("file") || WORD("length") ||
+         WORD("operating_system") || WORD("operating_system_family") ||
+         WORD("panic") || WORD("remove") || WORD("remove_first") ||
+         WORD("remove_last") || WORD("require") || WORD("require_once") ||
+         WORD("sequence") || WORD("shared_library_extension") ||
+         WORD("shared_library_prefix") || WORD("shared_library_suffix") ||
+         WORD("swap_remove") || WORD("write") || WORD("write_error") ||
+         WORD("write_error_line") || WORD("write_line");
 }
 
 #undef WORD

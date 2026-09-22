@@ -50,7 +50,10 @@
   "self"
   "parent"
   "default"
+  "where"
 ] @keyword
+
+(where_constraint parameter: (identifier) @type.parameter)
 
 [
   "="

@@ -2692,6 +2692,10 @@
         {
           "type": "type_parameter_list",
           "named": true
+        },
+        {
+          "type": "where_clause",
+          "named": true
         }
       ]
     }
@@ -5121,6 +5125,10 @@
         },
         {
           "type": "type_parameter_list",
+          "named": true
+        },
+        {
+          "type": "where_clause",
           "named": true
         }
       ]

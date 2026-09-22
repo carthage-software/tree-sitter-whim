@@ -1,4 +1,203 @@
 ==================
+Function where clauses
+==================
+
+function identity<T>(T $value): T where T: !null {
+  return $value;
+}
+
+function collect<Input, Output>(Input $value): Output
+  where Input: AnExtremelyLongInterfaceName,
+        Output: AnotherExtremelyLongInterfaceName,
+{
+  return $value;
+}
+
+function noReturn<T>() where T: int {}
+
+---
+
+(source_file
+  (function_declaration
+    name: (function_name
+      (identifier))
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    parameters: (parameter_list
+      (parameter
+        type: (named_type
+          name: (identifier))
+        name: (variable)))
+    (return_type
+      type: (named_type
+        name: (identifier)))
+    (where_clause
+      (where_constraint
+        parameter: (identifier)
+        bound: (negated_type
+          type: (literal_type
+            (null_literal)))))
+    body: (block
+      (expression_statement
+        (return_expression
+          value: (variable)))))
+  (function_declaration
+    name: (function_name
+      (identifier))
+    (type_parameter_list
+      (type_parameter
+        name: (identifier))
+      (type_parameter
+        name: (identifier)))
+    parameters: (parameter_list
+      (parameter
+        type: (named_type
+          name: (identifier))
+        name: (variable)))
+    (return_type
+      type: (named_type
+        name: (identifier)))
+    (where_clause
+      (where_constraint
+        parameter: (identifier)
+        bound: (named_type
+          name: (identifier)))
+      (where_constraint
+        parameter: (identifier)
+        bound: (named_type
+          name: (identifier))))
+    body: (block
+      (expression_statement
+        (return_expression
+          value: (variable)))))
+  (function_declaration
+    name: (function_name
+      (identifier))
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)))
+    parameters: (parameter_list)
+    (where_clause
+      (where_constraint
+        parameter: (identifier)
+        bound: (primitive_type)))
+    body: (block)))
+
+==================
+Closure where clauses
+==================
+
+$identity = fn<T>(T $value): T where T: !null => $value;
+$block = fn<T>(T $value): T where T: !null, {
+  return $value;
+};
+$wide = fn<Input, Output>(Input $value): Output
+  where Input: AnExtremelyLongInterfaceName,
+        Output: AnotherExtremelyLongInterfaceName,
+=> $value;
+$noReturn = fn<T>() where T: int => 1;
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (closure_expression
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (negated_type
+              type: (literal_type
+                (null_literal)))))
+        body: (closure_body
+          value: (variable)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (closure_expression
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (negated_type
+              type: (literal_type
+                (null_literal)))))
+        body: (closure_body
+          (block
+            (expression_statement
+              (return_expression
+                value: (variable))))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (closure_expression
+        (type_parameter_list
+          (type_parameter
+            name: (identifier))
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list
+          (parameter
+            type: (named_type
+              name: (identifier))
+            name: (variable)))
+        (return_type
+          type: (named_type
+            name: (identifier)))
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_type
+              name: (identifier)))
+          (where_constraint
+            parameter: (identifier)
+            bound: (named_type
+              name: (identifier))))
+        body: (closure_body
+          value: (variable)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (closure_expression
+        (type_parameter_list
+          (type_parameter
+            name: (identifier)))
+        parameters: (parameter_list)
+        (where_clause
+          (where_constraint
+            parameter: (identifier)
+            bound: (primitive_type)))
+        body: (closure_body
+          value: (integer_literal))))))
+
+==================
 Method where clauses
 ==================
 

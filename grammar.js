@@ -343,6 +343,7 @@ export default grammar({
         optional($.type_parameter_list),
         field("parameters", $.parameter_list),
         optional($.return_type),
+        optional($.where_clause),
         field("body", $.block),
       ),
 
@@ -1037,6 +1038,7 @@ export default grammar({
         optional($.type_parameter_list),
         field("parameters", $.parameter_list),
         optional($.return_type),
+        optional($.where_clause),
         field("body", $.closure_body),
       ),
 

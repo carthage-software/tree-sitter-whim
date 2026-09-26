@@ -1,0 +1,151 @@
+==================
+Unsigned types and contextual names
+==================
+
+type Unsigned = uint;
+
+function uint(uint $value): uint {
+  return $value;
+}
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (identifier)
+    type: (primitive_type))
+  (function_declaration
+    name: (function_name)
+    parameters: (parameter_list
+      (parameter
+        type: (primitive_type)
+        name: (variable)))
+    (return_type
+      type: (primitive_type))
+    body: (block
+      (expression_statement
+        (return_expression
+          value: (variable))))))
+
+==================
+Integer suffixes
+==================
+
+$values = vec[
+  0,
+  42i,
+  42I,
+  42u,
+  42U,
+  0b1010,
+  0b1010i,
+  0b0101011_10011u,
+  0B1010I,
+  0B1010U,
+  0o755,
+  0o755i,
+  0o7_55u,
+  0O755I,
+  0O755U,
+  0xffff,
+  0xffffi,
+  0xff_ffu,
+  0XFF_FFI,
+  0XFFFFU,
+];
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (vector_expression
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))
+        (vector_element
+          value: (integer_literal))))))
+
+==================
+Suffixed literal types and ranges
+==================
+
+type UnsignedRange = 0u..=100U;
+type SignedRange = -10i..10I;
+type OpenRange = 10u..;
+type Shape = dict[1 => int, 2u => string, 3i => bool];
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (identifier)
+    type: (integer_range_type
+      lower: (signed_integer_literal
+        (integer_literal))
+      operator: (range_operator)
+      upper: (signed_integer_literal
+        (integer_literal))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (integer_range_type
+      lower: (signed_integer_literal
+        (integer_literal))
+      operator: (range_operator)
+      upper: (signed_integer_literal
+        (integer_literal))))
+  (type_alias_declaration
+    name: (identifier)
+    type: (integer_range_type
+      lower: (signed_integer_literal
+        (integer_literal))
+      operator: (range_operator)))
+  (type_alias_declaration
+    name: (identifier)
+    type: (dictionary_shape_type
+      (dictionary_shape_entry
+        key: (integer_literal)
+        type: (primitive_type))
+      (dictionary_shape_entry
+        key: (integer_literal)
+        type: (primitive_type))
+      (dictionary_shape_entry
+        key: (integer_literal)
+        type: (primitive_type)))))

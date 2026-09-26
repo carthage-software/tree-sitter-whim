@@ -63,9 +63,10 @@ static bool is_reserved_identifier(const char *text, size_t length) {
          WORD("protected") || WORD("public") || WORD("readonly") ||
          WORD("return") || WORD("self") || WORD("static") || WORD("string") ||
          WORD("throw") || WORD("true") || WORD("try") || WORD("type") ||
-         WORD("use") || WORD("using") || WORD("vec") || WORD("void") ||
-         WORD("where") || WORD("while") || WORD("assert") || WORD("clone") ||
-         WORD("contains") || WORD("contains_key") ||
+         WORD("uint") || WORD("use") || WORD("using") || WORD("vec") ||
+         WORD("void") || WORD("where") || WORD("while") ||
+         WORD("assert") || WORD("clone") || WORD("contains") ||
+         WORD("contains_key") ||
          WORD("cpu_architecture") || WORD("debug") || WORD("directory") ||
          WORD("discard") || WORD("drop") || WORD("embed") ||
          WORD("executable_extension") || WORD("executable_suffix") ||

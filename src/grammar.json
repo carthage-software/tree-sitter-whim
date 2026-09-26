@@ -8936,23 +8936,40 @@
     "integer_literal": {
       "type": "TOKEN",
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "0[xX][0-9A-Fa-f](?:_?[0-9A-Fa-f])*"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "0[xX][0-9A-Fa-f](?:_?[0-9A-Fa-f])*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "0[bB][01](?:_?[01])*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "0[oO][0-7](?:_?[0-7])*"
+              },
+              {
+                "type": "PATTERN",
+                "value": "0|[1-9](?:_?[0-9])*"
+              }
+            ]
           },
           {
-            "type": "PATTERN",
-            "value": "0[bB][01](?:_?[01])*"
-          },
-          {
-            "type": "PATTERN",
-            "value": "0[oO][0-7](?:_?[0-7])*"
-          },
-          {
-            "type": "PATTERN",
-            "value": "0|[1-9](?:_?[0-9])*"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[iIuU]"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
@@ -9491,6 +9508,10 @@
         {
           "type": "STRING",
           "value": "int"
+        },
+        {
+          "type": "STRING",
+          "value": "uint"
         },
         {
           "type": "STRING",
@@ -11687,6 +11708,10 @@
         },
         {
           "type": "STRING",
+          "value": "uint"
+        },
+        {
+          "type": "STRING",
           "value": "use"
         },
         {
@@ -11843,6 +11868,10 @@
         {
           "type": "STRING",
           "value": "type"
+        },
+        {
+          "type": "STRING",
+          "value": "uint"
         },
         {
           "type": "STRING",
@@ -12088,6 +12117,10 @@
         {
           "type": "STRING",
           "value": "type"
+        },
+        {
+          "type": "STRING",
+          "value": "uint"
         },
         {
           "type": "STRING",

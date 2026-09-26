@@ -127,6 +127,7 @@ const CONTEXTUAL_KEYWORDS = [
   "readonly",
   "string",
   "type",
+  "uint",
   "use",
   "vec",
   "void",
@@ -1747,11 +1748,14 @@ export default grammar({
 
     integer_literal: (_) =>
       token(
-        choice(
-          /0[xX][0-9A-Fa-f](?:_?[0-9A-Fa-f])*/,
-          /0[bB][01](?:_?[01])*/,
-          /0[oO][0-7](?:_?[0-7])*/,
-          /0|[1-9](?:_?[0-9])*/,
+        seq(
+          choice(
+            /0[xX][0-9A-Fa-f](?:_?[0-9A-Fa-f])*/,
+            /0[bB][01](?:_?[01])*/,
+            /0[oO][0-7](?:_?[0-7])*/,
+            /0|[1-9](?:_?[0-9])*/,
+          ),
+          optional(/[iIuU]/),
         ),
       ),
 
@@ -1877,6 +1881,7 @@ export default grammar({
       choice(
         "string",
         "int",
+        "uint",
         "float",
         "bool",
         "void",

@@ -12512,6 +12512,10 @@
     "named": false
   },
   {
+    "type": "uint",
+    "named": false
+  },
+  {
     "type": "use",
     "named": false
   },

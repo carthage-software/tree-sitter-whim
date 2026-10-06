@@ -55,7 +55,8 @@ static bool is_reserved_identifier(const char *text, size_t length) {
          WORD("continue") || WORD("default") || WORD("dict") || WORD("do") ||
          WORD("else") || WORD("enum") || WORD("extends") || WORD("false") ||
          WORD("final") || WORD("finally") || WORD("float") || WORD("fn") ||
-         WORD("for") || WORD("foreach") || WORD("function") || WORD("if") ||
+         WORD("for") || WORD("foreach") || WORD("fresh") ||
+         WORD("function") || WORD("if") ||
          WORD("implements") || WORD("in") || WORD("int") || WORD("interface") ||
          WORD("is") || WORD("match") || WORD("mixed") || WORD("namespace") ||
          WORD("never") || WORD("new") || WORD("newtype") || WORD("null") ||

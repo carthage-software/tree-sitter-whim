@@ -1,0 +1,108 @@
+==================
+Fresh types, values, and members
+==================
+
+type Identity = fresh;
+newtype Ticket = fresh;
+
+function identity<T: fresh = fresh>(fresh $value): fresh {
+  return $value;
+}
+
+class Box {
+  public function fresh(): fresh {
+    return fresh!();
+  }
+}
+
+$a = fresh!();
+$copy = $a;
+assert!($a is fresh);
+$value = $ready ? fresh!() : $copy;
+$next = $object->fresh();
+
+---
+
+(source_file
+  (type_alias_declaration
+    name: (identifier)
+    type: (primitive_type))
+  (newtype_declaration
+    name: (identifier)
+    type: (primitive_type))
+  (function_declaration
+    name: (function_name
+      (identifier))
+    (type_parameter_list
+      (type_parameter
+        name: (identifier)
+        (type_parameter_bound
+          type: (primitive_type))
+        (type_parameter_default
+          type: (primitive_type))))
+    parameters: (parameter_list
+      (parameter
+        type: (primitive_type)
+        name: (variable)))
+    (return_type
+      type: (primitive_type))
+    body: (block
+      (expression_statement
+        (return_expression
+          value: (variable)))))
+  (class_declaration
+    name: (identifier)
+    body: (class_body
+      (method_declaration
+        modifier: (member_modifier)
+        name: (member_name)
+        parameters: (parameter_list)
+        (return_type
+          type: (primitive_type))
+        body: (block
+          (expression_statement
+            (return_expression
+              value: (fresh_construct)))))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (fresh_construct)))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (variable)))
+  (expression_statement
+    (assert_construct
+      condition: (type_operation_expression
+        value: (variable)
+        type: (primitive_type))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (variable)
+        then: (fresh_construct)
+        otherwise: (variable))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (method_call_expression
+        object: (variable)
+        method: (member_name)
+        arguments: (argument_list)))))
+
+==================
+Fresh cannot name a top-level function
+==================
+
+function fresh(): void {}
+
+---
+
+(source_file
+  (ERROR
+    (ERROR)))

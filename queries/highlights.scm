@@ -43,6 +43,7 @@
   "finally"
   "match"
   "new"
+  "fresh"
   "break"
   "continue"
   "return"
@@ -129,6 +130,9 @@
   "#["
   "#!["
 ] @punctuation.delimiter
+
+(conditional_expression
+  ["?" ":"] @operator)
 
 ; Literals and strings
 
@@ -256,6 +260,7 @@
 
 ; Language constructs
 
+(fresh_construct "fresh" @function.macro)
 (require_construct "require" @function.macro)
 (require_once_construct "require_once" @function.macro)
 (length_construct "length" @function.macro)

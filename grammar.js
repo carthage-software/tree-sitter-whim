@@ -9,11 +9,11 @@
 
 const PREC = {
   ASSIGNMENT: 1,
-  COALESCE: 2,
-  OR: 3,
-  AND: 4,
-  COMPARISON: 5,
-  TYPE_OPERATION: 6,
+  CONDITIONAL: 2,
+  COALESCE: 3,
+  OR: 4,
+  AND: 5,
+  COMPARISON: 6,
   PIPE: 7,
   CONCATENATION: 8,
   BITWISE_OR: 9,
@@ -44,6 +44,7 @@ const FULL_KEYWORDS = [
   "fn",
   "for",
   "foreach",
+  "fresh",
   "function",
   "if",
   "match",
@@ -210,6 +211,8 @@ export default grammar({
     [$.dictionary_type],
     [$.named_type],
     [$.vector_type],
+    [$._type_operation_level, $.type_operation_expression],
+    [$._foreach_type_operation_level, $._foreach_type_operation_expression],
     [$.vector_type, $.vector_shape_type],
     [$.dictionary_type, $.dictionary_shape_type],
     [$.namespace_implicit_body],
@@ -657,7 +660,22 @@ export default grammar({
     _expression: ($) => $._assignment_level,
 
     _assignment_level: ($) =>
-      choice($.assignment_expression, $._coalesce_level),
+      choice($.assignment_expression, $._conditional_level),
+
+    _conditional_level: ($) =>
+      choice($.conditional_expression, $._coalesce_level),
+
+    conditional_expression: ($) =>
+      prec.right(
+        PREC.CONDITIONAL,
+        seq(
+          field("condition", $._coalesce_level),
+          "?",
+          field("then", $._assignment_level),
+          ":",
+          field("otherwise", $._assignment_level),
+        ),
+      ),
 
     _coalesce_level: ($) =>
       choice(
@@ -894,7 +912,7 @@ export default grammar({
     _foreach_assignment_level: ($) =>
       choice(
         alias($._foreach_assignment_expression, $.assignment_expression),
-        $._foreach_coalesce_level,
+        $._foreach_conditional_level,
       ),
     _foreach_assignment_expression: ($) =>
       prec.right(
@@ -903,6 +921,23 @@ export default grammar({
           field("left", $._assignment_target),
           field("operator", $.assignment_operator),
           field("right", $._foreach_assignment_level),
+        ),
+      ),
+
+    _foreach_conditional_level: ($) =>
+      choice(
+        alias($._foreach_conditional_expression, $.conditional_expression),
+        $._foreach_coalesce_level,
+      ),
+    _foreach_conditional_expression: ($) =>
+      prec.right(
+        PREC.CONDITIONAL,
+        seq(
+          field("condition", $._foreach_coalesce_level),
+          "?",
+          field("then", $._foreach_assignment_level),
+          ":",
+          field("otherwise", $._foreach_assignment_level),
         ),
       ),
 
@@ -975,13 +1010,10 @@ export default grammar({
         $._pipe_level,
       ),
     _foreach_type_operation_expression: ($) =>
-      prec(
-        PREC.TYPE_OPERATION,
-        seq(
-          field("value", $._pipe_level),
-          field("operator", choice("is", seq("?", "as"))),
-          field("type", $._type),
-        ),
+      seq(
+        field("value", $._pipe_level),
+        field("operator", choice("is", seq("?", "as"))),
+        field("type", $._type),
       ),
 
     parenthesized_expression: ($) => seq("(", $._expression, ")"),
@@ -1279,6 +1311,7 @@ export default grammar({
 
     _construct_expression: ($) =>
       choice(
+        $.fresh_construct,
         $.require_construct,
         $.require_once_construct,
         $.length_construct,
@@ -1313,6 +1346,7 @@ export default grammar({
         $.executable_extension_construct,
       ),
 
+    fresh_construct: (_) => construct("fresh"),
     require_construct: ($) => unaryConstruct($, "require", "value"),
     require_once_construct: ($) => unaryConstruct($, "require_once", "value"),
     length_construct: ($) => unaryConstruct($, "length", "value"),
@@ -1427,13 +1461,10 @@ export default grammar({
     comparison_operator: (_) => choice("==", "!=", "<", "<=", ">", ">=", "<=>"),
 
     type_operation_expression: ($) =>
-      prec(
-        PREC.TYPE_OPERATION,
-        seq(
-          field("value", $._pipe_level),
-          field("operator", choice("is", "as", seq("?", "as"))),
-          field("type", $._type),
-        ),
+      seq(
+        field("value", $._pipe_level),
+        field("operator", choice("is", "as", seq("?", "as"))),
+        field("type", $._type),
       ),
 
     _assignment_target: ($) =>
@@ -1882,6 +1913,7 @@ export default grammar({
         "string",
         "int",
         "uint",
+        "fresh",
         "float",
         "bool",
         "void",

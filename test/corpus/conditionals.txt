@@ -1,0 +1,159 @@
+==================
+Conditional precedence and associativity
+==================
+
+$result = $ready ? 1 : 2;
+$nested = $a ? $b ? $c : $d : $e ? $f : $g;
+$assigned = $a ? $b = 1 : $c = 2;
+$coalesced = $a ?? false ? 1 : 2;
+$logical = $a || $b ? 1 : 2;
+$cast = $value ?as bool ? $left ?as int : $right ?as int;
+
+---
+
+(source_file
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (variable)
+        then: (integer_literal)
+        otherwise: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (variable)
+        then: (conditional_expression
+          condition: (variable)
+          then: (variable)
+          otherwise: (variable))
+        otherwise: (conditional_expression
+          condition: (variable)
+          then: (variable)
+          otherwise: (variable)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (variable)
+        then: (assignment_expression
+          left: (variable)
+          operator: (assignment_operator)
+          right: (integer_literal))
+        otherwise: (assignment_expression
+          left: (variable)
+          operator: (assignment_operator)
+          right: (integer_literal)))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (binary_expression
+          left: (variable)
+          right: (boolean_literal))
+        then: (integer_literal)
+        otherwise: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (binary_expression
+          left: (variable)
+          right: (variable))
+        then: (integer_literal)
+        otherwise: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (type_operation_expression
+          value: (variable)
+          type: (primitive_type))
+        then: (type_operation_expression
+          value: (variable)
+          type: (primitive_type))
+        otherwise: (type_operation_expression
+          value: (variable)
+          type: (primitive_type))))))
+
+==================
+Conditional control flow and foreach collections
+==================
+
+foreach ($ready ? $left : $right as $value) {
+  return $value ? break : continue;
+}
+
+foreach ($value ?as vec<int> ? $left : $right as $item) {}
+
+$result = $ready ? return 1 : throw $error;
+
+---
+
+(source_file
+  (foreach_statement
+    collection: (conditional_expression
+      condition: (variable)
+      then: (variable)
+      otherwise: (variable))
+    target: (foreach_value_target
+      value: (variable))
+    body: (block
+      (expression_statement
+        (return_expression
+          value: (conditional_expression
+            condition: (variable)
+            then: (break_expression)
+            otherwise: (continue_expression))))))
+  (foreach_statement
+    collection: (conditional_expression
+      condition: (type_operation_expression
+        value: (variable)
+        type: (vector_type
+          (type_argument_list
+            (type_argument
+              type: (primitive_type)))))
+      then: (variable)
+      otherwise: (variable))
+    target: (foreach_value_target
+      value: (variable))
+    body: (block))
+  (expression_statement
+    (assignment_expression
+      left: (variable)
+      operator: (assignment_operator)
+      right: (conditional_expression
+        condition: (variable)
+        then: (return_expression
+          value: (integer_literal))
+        otherwise: (throw_expression
+          value: (variable))))))
+
+==================
+Incomplete conditionals are rejected
+==================
+
+$a ?: $b;
+$a ? $b;
+$a ? $b :;
+
+---
+
+(source_file
+  (ERROR
+    (variable))
+  (expression_statement
+    (variable))
+  (ERROR
+    (variable)
+    (ERROR
+      (variable))
+    (variable)
+    (variable)))

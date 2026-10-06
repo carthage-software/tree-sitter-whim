@@ -40,6 +40,10 @@
         "named": true
       },
       {
+        "type": "conditional_expression",
+        "named": true
+      },
+      {
         "type": "constant_access_expression",
         "named": true
       },
@@ -101,6 +105,10 @@
       },
       {
         "type": "float_literal",
+        "named": true
+      },
+      {
+        "type": "fresh_construct",
         "named": true
       },
       {
@@ -630,6 +638,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -1051,6 +1063,10 @@
             "named": true
           },
           {
+            "type": "conditional_expression",
+            "named": true
+          },
+          {
             "type": "constant_access_expression",
             "named": true
           },
@@ -1112,6 +1128,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -1454,6 +1474,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -1806,6 +1830,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -2233,6 +2261,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -2801,6 +2833,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -3089,6 +3125,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -3276,6 +3316,886 @@
     "type": "comparison_operator",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "conditional_expression",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assert_construct",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "break_expression",
+            "named": true
+          },
+          {
+            "type": "class_constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "clone_construct",
+            "named": true
+          },
+          {
+            "type": "closure_expression",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "contains_construct",
+            "named": true
+          },
+          {
+            "type": "contains_key_construct",
+            "named": true
+          },
+          {
+            "type": "continue_expression",
+            "named": true
+          },
+          {
+            "type": "cpu_architecture_construct",
+            "named": true
+          },
+          {
+            "type": "debug_construct",
+            "named": true
+          },
+          {
+            "type": "dictionary_expression",
+            "named": true
+          },
+          {
+            "type": "directory_construct",
+            "named": true
+          },
+          {
+            "type": "discard_construct",
+            "named": true
+          },
+          {
+            "type": "drop_construct",
+            "named": true
+          },
+          {
+            "type": "embed_construct",
+            "named": true
+          },
+          {
+            "type": "executable_extension_construct",
+            "named": true
+          },
+          {
+            "type": "executable_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "exit_construct",
+            "named": true
+          },
+          {
+            "type": "file_construct",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
+            "type": "function_call_expression",
+            "named": true
+          },
+          {
+            "type": "function_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated_string",
+            "named": true
+          },
+          {
+            "type": "length_construct",
+            "named": true
+          },
+          {
+            "type": "match_expression",
+            "named": true
+          },
+          {
+            "type": "method_call_expression",
+            "named": true
+          },
+          {
+            "type": "method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "null_literal",
+            "named": true
+          },
+          {
+            "type": "null_safe_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "null_safe_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "object_creation_expression",
+            "named": true
+          },
+          {
+            "type": "operating_system_construct",
+            "named": true
+          },
+          {
+            "type": "operating_system_family_construct",
+            "named": true
+          },
+          {
+            "type": "panic_construct",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "property_access_expression",
+            "named": true
+          },
+          {
+            "type": "remove_construct",
+            "named": true
+          },
+          {
+            "type": "remove_first_construct",
+            "named": true
+          },
+          {
+            "type": "remove_last_construct",
+            "named": true
+          },
+          {
+            "type": "require_construct",
+            "named": true
+          },
+          {
+            "type": "require_once_construct",
+            "named": true
+          },
+          {
+            "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_extension_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_prefix_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "static_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "static_method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "static_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expression",
+            "named": true
+          },
+          {
+            "type": "swap_remove_construct",
+            "named": true
+          },
+          {
+            "type": "throw_expression",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          },
+          {
+            "type": "type_operation_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "update_expression",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          },
+          {
+            "type": "vector_expression",
+            "named": true
+          },
+          {
+            "type": "vector_fill_expression",
+            "named": true
+          },
+          {
+            "type": "write_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_line_construct",
+            "named": true
+          },
+          {
+            "type": "write_line_construct",
+            "named": true
+          }
+        ]
+      },
+      "otherwise": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assert_construct",
+            "named": true
+          },
+          {
+            "type": "assignment_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "break_expression",
+            "named": true
+          },
+          {
+            "type": "class_constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "clone_construct",
+            "named": true
+          },
+          {
+            "type": "closure_expression",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "conditional_expression",
+            "named": true
+          },
+          {
+            "type": "constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "contains_construct",
+            "named": true
+          },
+          {
+            "type": "contains_key_construct",
+            "named": true
+          },
+          {
+            "type": "continue_expression",
+            "named": true
+          },
+          {
+            "type": "cpu_architecture_construct",
+            "named": true
+          },
+          {
+            "type": "debug_construct",
+            "named": true
+          },
+          {
+            "type": "dictionary_expression",
+            "named": true
+          },
+          {
+            "type": "directory_construct",
+            "named": true
+          },
+          {
+            "type": "discard_construct",
+            "named": true
+          },
+          {
+            "type": "drop_construct",
+            "named": true
+          },
+          {
+            "type": "embed_construct",
+            "named": true
+          },
+          {
+            "type": "executable_extension_construct",
+            "named": true
+          },
+          {
+            "type": "executable_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "exit_construct",
+            "named": true
+          },
+          {
+            "type": "file_construct",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
+            "type": "function_call_expression",
+            "named": true
+          },
+          {
+            "type": "function_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated_string",
+            "named": true
+          },
+          {
+            "type": "length_construct",
+            "named": true
+          },
+          {
+            "type": "match_expression",
+            "named": true
+          },
+          {
+            "type": "method_call_expression",
+            "named": true
+          },
+          {
+            "type": "method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "null_literal",
+            "named": true
+          },
+          {
+            "type": "null_safe_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "null_safe_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "object_creation_expression",
+            "named": true
+          },
+          {
+            "type": "operating_system_construct",
+            "named": true
+          },
+          {
+            "type": "operating_system_family_construct",
+            "named": true
+          },
+          {
+            "type": "panic_construct",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "property_access_expression",
+            "named": true
+          },
+          {
+            "type": "remove_construct",
+            "named": true
+          },
+          {
+            "type": "remove_first_construct",
+            "named": true
+          },
+          {
+            "type": "remove_last_construct",
+            "named": true
+          },
+          {
+            "type": "require_construct",
+            "named": true
+          },
+          {
+            "type": "require_once_construct",
+            "named": true
+          },
+          {
+            "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_extension_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_prefix_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "static_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "static_method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "static_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expression",
+            "named": true
+          },
+          {
+            "type": "swap_remove_construct",
+            "named": true
+          },
+          {
+            "type": "throw_expression",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          },
+          {
+            "type": "type_operation_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "update_expression",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          },
+          {
+            "type": "vector_expression",
+            "named": true
+          },
+          {
+            "type": "vector_fill_expression",
+            "named": true
+          },
+          {
+            "type": "write_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_line_construct",
+            "named": true
+          },
+          {
+            "type": "write_line_construct",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assert_construct",
+            "named": true
+          },
+          {
+            "type": "assignment_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "break_expression",
+            "named": true
+          },
+          {
+            "type": "class_constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "clone_construct",
+            "named": true
+          },
+          {
+            "type": "closure_expression",
+            "named": true
+          },
+          {
+            "type": "comparison_expression",
+            "named": true
+          },
+          {
+            "type": "conditional_expression",
+            "named": true
+          },
+          {
+            "type": "constant_access_expression",
+            "named": true
+          },
+          {
+            "type": "contains_construct",
+            "named": true
+          },
+          {
+            "type": "contains_key_construct",
+            "named": true
+          },
+          {
+            "type": "continue_expression",
+            "named": true
+          },
+          {
+            "type": "cpu_architecture_construct",
+            "named": true
+          },
+          {
+            "type": "debug_construct",
+            "named": true
+          },
+          {
+            "type": "dictionary_expression",
+            "named": true
+          },
+          {
+            "type": "directory_construct",
+            "named": true
+          },
+          {
+            "type": "discard_construct",
+            "named": true
+          },
+          {
+            "type": "drop_construct",
+            "named": true
+          },
+          {
+            "type": "embed_construct",
+            "named": true
+          },
+          {
+            "type": "executable_extension_construct",
+            "named": true
+          },
+          {
+            "type": "executable_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "exit_construct",
+            "named": true
+          },
+          {
+            "type": "file_construct",
+            "named": true
+          },
+          {
+            "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
+            "type": "function_call_expression",
+            "named": true
+          },
+          {
+            "type": "function_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated_string",
+            "named": true
+          },
+          {
+            "type": "length_construct",
+            "named": true
+          },
+          {
+            "type": "match_expression",
+            "named": true
+          },
+          {
+            "type": "method_call_expression",
+            "named": true
+          },
+          {
+            "type": "method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "null_literal",
+            "named": true
+          },
+          {
+            "type": "null_safe_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "null_safe_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "object_creation_expression",
+            "named": true
+          },
+          {
+            "type": "operating_system_construct",
+            "named": true
+          },
+          {
+            "type": "operating_system_family_construct",
+            "named": true
+          },
+          {
+            "type": "panic_construct",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "property_access_expression",
+            "named": true
+          },
+          {
+            "type": "remove_construct",
+            "named": true
+          },
+          {
+            "type": "remove_first_construct",
+            "named": true
+          },
+          {
+            "type": "remove_last_construct",
+            "named": true
+          },
+          {
+            "type": "require_construct",
+            "named": true
+          },
+          {
+            "type": "require_once_construct",
+            "named": true
+          },
+          {
+            "type": "return_expression",
+            "named": true
+          },
+          {
+            "type": "sequence_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_extension_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_prefix_construct",
+            "named": true
+          },
+          {
+            "type": "shared_library_suffix_construct",
+            "named": true
+          },
+          {
+            "type": "static_method_call_expression",
+            "named": true
+          },
+          {
+            "type": "static_method_partial_application_expression",
+            "named": true
+          },
+          {
+            "type": "static_property_access_expression",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "subscript_expression",
+            "named": true
+          },
+          {
+            "type": "swap_remove_construct",
+            "named": true
+          },
+          {
+            "type": "throw_expression",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          },
+          {
+            "type": "type_operation_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "update_expression",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          },
+          {
+            "type": "vector_expression",
+            "named": true
+          },
+          {
+            "type": "vector_fill_expression",
+            "named": true
+          },
+          {
+            "type": "write_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_construct",
+            "named": true
+          },
+          {
+            "type": "write_error_line_construct",
+            "named": true
+          },
+          {
+            "type": "write_line_construct",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "constant_access_expression",
@@ -4445,6 +5365,10 @@
             "named": true
           },
           {
+            "type": "conditional_expression",
+            "named": true
+          },
+          {
             "type": "constant_access_expression",
             "named": true
           },
@@ -4506,6 +5430,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -4751,6 +5679,11 @@
     }
   },
   {
+    "type": "fresh_construct",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "fully_qualified_name",
     "named": true,
     "fields": {},
@@ -4884,6 +5817,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -5253,6 +6190,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -6062,6 +7003,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -6433,6 +7378,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -7142,6 +8091,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -7421,6 +8374,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -8133,6 +9090,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -8776,6 +9737,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -9092,6 +10057,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -9395,6 +10364,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -9745,6 +10718,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -10437,6 +11414,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -10912,6 +11893,10 @@
             "named": true
           },
           {
+            "type": "fresh_construct",
+            "named": true
+          },
+          {
             "type": "function_call_expression",
             "named": true
           },
@@ -11263,6 +12248,10 @@
           },
           {
             "type": "float_literal",
+            "named": true
+          },
+          {
+            "type": "fresh_construct",
             "named": true
           },
           {
@@ -12316,6 +13305,10 @@
   },
   {
     "type": "foreach",
+    "named": false
+  },
+  {
+    "type": "fresh",
     "named": false
   },
   {
